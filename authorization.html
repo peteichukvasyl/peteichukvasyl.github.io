@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Peteichuk | Реєстрація — Логін</title>
+
+<link rel="icon" href="logotype/logotype.png">
+<link rel="stylesheet" href="css/authorization.css">
+
+</head>
+<body>
+
+<div class="container">
+
+  <h1 id="formTitle">Вхід</h1>
+
+  <form id="authForm">
+
+    <input
+      type="text"
+      id="name"
+      placeholder="Ім'я"
+      style="display:none"
+    />
+
+    <input
+      type="email"
+      id="email"
+      placeholder="Email"
+      required
+    />
+
+    <input
+      type="password"
+      id="password"
+      placeholder="Пароль"
+      required
+    />
+
+    <button type="submit" id="submitBtn">
+      Увійти
+    </button>
+
+  </form>
+
+  <div class="toggle" id="toggleForm">
+    Перейти до реєстрації
+  </div>
+
+  <!-- ================================= -->
+  <!-- ADMIN PANEL -->
+  <!-- ================================= -->
+
+  <div class="secretPanel" id="secretPanel">
+
+    <h2>Секретна панель Admin</h2>
+
+    <table id="userTable">
+
+      <thead>
+        <tr>
+          <th>Ім'я</th>
+          <th>Email</th>
+          <th>Роль</th>
+          <th>IP</th>
+          <th>Статус</th>
+          <th>Бан до</th>
+          <th>Дії</th>
+        </tr>
+      </thead>
+
+      <tbody id="userTbody"></tbody>
+
+    </table>
+
+  </div>
+
+  <!-- ================================= -->
+  <!-- USER PANEL -->
+  <!-- ================================= -->
+
+  <div class="userPanel" id="userPanel">
+
+    <h2>Ваш акаунт</h2>
+
+    <p id="userInfo"></p>
+
+    <input
+      type="password"
+      id="oldPassword"
+      placeholder="Старий пароль"
+    />
+
+    <input
+      type="password"
+      id="newPassword"
+      placeholder="Новий пароль"
+    />
+
+    <button id="changePasswordBtn">
+      Змінити пароль
+    </button>
+
+    <!-- ================================= -->
+    <!-- USER VIOLATIONS -->
+    <!-- ================================= -->
+
+    <h3>Порушення та бан</h3>
+
+    <table id="violationsTable">
+
+      <thead>
+        <tr>
+          <th>Тип</th>
+          <th>Причина</th>
+          <th>Дата</th>
+          <th>Бан до</th>
+        </tr>
+      </thead>
+
+      <tbody id="violationsTbody"></tbody>
+
+    </table>
+
+  </div>
+
+  <div class="commentsPanel" id="commentsPanel">
+
+  <h2>Приватні коментарі</h2>
+
+  <textarea id="commentText" placeholder="Напишіть коментар..."></textarea>
+
+  <select id="commentTimer">
+    <option value="3600000">1 година</option>
+    <option value="86400000">1 день</option>
+    <option value="604800000">7 днів</option>
+    <option value="2592000000">30 днів</option>
+  </select>
+
+  <!-- 🔥 новий фільтр доступу -->
+  <select id="commentTarget">
+    <option value="broadcast">Всі (broadcast)</option>
+    <option value="user">Тільки користувачам</option>
+    <option value="moderator">Модераторам</option>
+    <option value="admin">Адмінам</option>
+  </select>
+
+  <button id="sendCommentBtn">Надіслати</button>
+
+  <!-- 🔥 АДМІН СТРУКТУРА -->
+  <div id="commentsAdminList"></div>
+
+  <!-- 🔥 ЮЗЕР СТРУКТУРА -->
+  <div id="commentsList"></div>
+
+</div>
+</div>
+
+<!-- ================================= -->
+<!-- NOTIFICATIONS -->
+<!-- ================================= -->
+
+<div class="toast" id="toast"></div>
+
+<script src="js/authorization.js"></script>
+
+</body>
+</html>

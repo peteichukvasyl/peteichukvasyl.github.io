@@ -1,0 +1,14 @@
+<svg width="842" height="230" viewBox="0 0 842 230" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .brand {
+      font-family: 'Arial Black', 'Segoe UI', sans-serif;
+      font-size: 96px;
+      fill: black;
+      letter-spacing: 10px;
+    }
+  </style>
+
+  <text x="50%" y="60%" text-anchor="middle" class="brand">
+    PETEICHUK
+  </text>
+</svg>

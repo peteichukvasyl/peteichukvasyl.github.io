@@ -1,0 +1,159 @@
+:root { --bg:#000; --panel:#000; --txt:#eef2ff; --muted:#9aa4bf; --accent:#fff; --accent-hover:#000000; --danger:#ff6b6b; --warn:#ffd166; --ok:#54d6a1; --radius:12px; --shadow:0 10px 30px rgba(0,0,0,.35); }
+
+::-webkit-scrollbar { width:10px; }
+::-webkit-scrollbar-thumb { background-color:#0e0e0e; }
+::-webkit-scrollbar-track { background-color:#0b1227; }
+
+body { font-family:sans-serif; background:var(--bg); color:var(--txt); display:flex; justify-content:center; align-items:flex-start; padding-top:15%; margin:0; background-image:url(../image/peteichuk-dunkel-fon.png); background-attachment:fixed; background-position:center; background-repeat:no-repeat; background-size:cover; user-select:none; }
+
+.container { background:var(--panel); padding:30px; border-radius:var(--radius); width:420px; background-image:url(../image/peteichuk-dunkel-fon.png); background-attachment:fixed; background-position:center; background-repeat:no-repeat; background-size:cover; }
+
+h1 { font-size:22px; text-align:center; margin-bottom:20px; color:#fff; }
+
+input,
+select,
+textarea { width:100%; padding:10px 12px; margin:6px 0; border-radius:12px; border:1px solid #ffffff82; background:#ffffff10; color:var(--txt); outline:none; transition:0.2s border-color,0.2s box-shadow; box-sizing:border-box; }
+
+input:focus,
+select:focus,
+textarea:focus { border-color:var(--accent); box-shadow:0 0 0 3px #ffffff10; }
+
+button { width:76%; padding:10px; margin:10px 0; margin-left:12%; border-radius:12px; border:none; background:linear-gradient(180deg,#ffffffc5,#ffffff10); color:var(--txt); cursor:pointer; transition:background .15s ease,color .15s ease,box-shadow .15s ease; }
+
+button:hover { background:linear-gradient(180deg,#ffffffc5,#00000010); box-shadow:0 6px 18px rgba(0,0,0,.25); color:#000; }
+
+.btn-ok { background:var(--ok); border:1px solid #2e8b5a; color:var(--txt); }
+.btn-warn { background:var(--warn); border:1px solid #9a7f14; color:var(--txt); }
+.btn-danger { background:var(--danger); border:1px solid #a53333; color:var(--txt); }
+.btn-acc { background:var(--accent); border:1px solid #315ea1; color:var(--txt); }
+
+.toggle { margin-left:35%; width:34.8%; font-size:14px; cursor:pointer; color:rgb(190 190 190); }
+.toggle:hover { color:#fff; }
+
+.toast { position:fixed; right:16px; bottom:16px; display:grid; gap:8px; z-index:200; }
+.t { background:var(--panel); border:1px solid #000; padding:10px 12px; border-radius:12px; box-shadow:var(--shadow); }
+
+.secretPanel,
+.userPanel,
+.commentsPanel { width:100%; margin-top:20px; background-image:url(projects/peteichuk-dunkel-fon.png); background-attachment:fixed; background-position:center; background-repeat:no-repeat; background-size:cover; }
+
+.secretPanel h2,
+.userPanel h2,
+.commentsPanel h2 { margin-top:0; font-size:18px; text-align:center; }
+
+.secretPanel input,
+.userPanel input,
+.commentsPanel input,
+.commentsPanel textarea,
+.commentsPanel select { margin-bottom:10px; }
+
+.secretPanel button,
+.userPanel button,
+.commentsPanel button { width:76%; padding:10px; margin:10px 0; margin-left:12%; border-radius:12px; border:none; color:var(--txt); cursor:pointer; transition:.15s transform,.15s background; }
+
+.secretPanel button:hover,
+.userPanel button:hover,
+.commentsPanel button:hover { width:76%; padding:10px; margin:10px 0; margin-left:12%; border-radius:12px; border:none; color:var(--txt); cursor:pointer; transition:.15s transform,.15s background; }
+
+#userTable,
+#violationsTable { width:100%; border-collapse:collapse; margin-top:10px; }
+
+#userTable th,
+#userTable td,
+#violationsTable th,
+#violationsTable td { border-bottom:1px solid #ffffff; font-size:14px; padding:8px; }
+
+#userTable th,
+#violationsTable th { text-align:left; color:var(--muted); font-size:14px; }
+
+option { background-color:#fff; color:#000; }
+
+.pill { padding:2px 6px; border-radius:50px; font-size:12px; cursor:pointer; }
+
+.pill.user { background:rgba(110,168,254,.1); color:#6ea8fe; }
+.pill.admin { background:rgba(157,255,163,.1); color:#9dffa3; }
+.pill.moderator { background:rgba(170,170,255,.1); color:#aaaaff; }
+.pill.warn { background:rgba(255,209,102,.1); color:#ffe7a8; }
+.pill.ban { background:rgba(255,107,107,.1); color:#ffc1c1; }
+
+.table-actions button { width:100%; height:100%; margin:0 auto; padding:0; margin-top:4px; margin-bottom:4px; padding-left:4px; padding-right:4px; font-size:14px; border-radius:0; border:0; }
+
+.commentsPanel { margin-top:25px; }
+
+#commentText { min-height:120px; resize:vertical; }
+
+#commentsList { margin-top:20px; }
+
+.comment { border:1px solid #ffffff22; padding:14px; border-radius:14px; margin-top:14px; background:#ffffff08; backdrop-filter:blur(6px); }
+
+.comment-top { display:flex; justify-content:space-between; gap:10px; margin-bottom:10px; font-size:13px; color:#aaa; flex-wrap:wrap; }
+
+.comment-text { line-height:1.5; word-break:break-word; color:#fff; }
+
+.comment-actions { display:flex; gap:10px; margin-top:14px; flex-wrap:wrap; }
+
+.comment-actions button { width:auto; margin:0; padding:7px 12px; border-radius:10px; }
+
+@media (max-width:600px){
+
+body { padding-top:40px; padding-left:10px; padding-right:10px; }
+
+.container { width:100%; padding:20px; }
+
+button { width:100%; margin-left:0; }
+
+.toggle { width:100%; margin-left:0; text-align:center; }
+
+.comment-top { flex-direction:column; }
+
+.comment-actions { flex-direction:column; }
+
+.comment-actions button { width:100%; }
+
+}
+
+
+button {
+    width: 76%;
+    padding: 10px;
+    margin: 10px 0;
+    margin-left: 12%;
+    border-radius: 12px;
+    border: none;
+    background: linear-gradient(180deg,#ffffffc5,#ffffff10);
+    color: var(--txt);
+    cursor: pointer;
+    transition: background .15s ease, color .15s ease;
+    transform: none; /* 🔥 важливо */
+}
+
+button:hover {
+    background: linear-gradient(180deg,#ffffffc5,#00000010);
+    color: #000;
+    transform: none; /* 🔥 прибрали підйом */
+}
+
+
+.comment-group {
+    border: 1px solid #ffffff22;
+    border-radius: 12px;
+    margin-top: 10px;
+    overflow: hidden;
+}
+
+.comment-group-header {
+    padding: 10px;
+    cursor: pointer;
+    background: #ffffff10;
+    display: flex;
+    justify-content: space-between;
+}
+
+.comment-group-body {
+    display: none;
+    padding: 10px;
+}
+
+.comment-group.open .comment-group-body {
+    display: block;
+}

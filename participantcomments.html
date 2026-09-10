@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Peteichuk | Підтрика та коментарі</title>
+<link rel="icon" href="logotype/logotype.png">
+<link rel="stylesheet" href="css/participantcomments.css">
+</head>
+<body>
+   <div class="logotype"><a href="index.html">P e t e i c h u k</a></div>
+  <div id="wrapper">
+    <!-- Вхід -->
+    <section id="loginSection">
+      <h2>Доступ до панелі адміністратора</h2>
+      <form id="loginForm" autocomplete="off">
+        <label for="username">Ім'я користувача:</label>
+        <input type="text" id="username" name="username" required autocomplete="username" />
+
+        <label for="password">Пароль:</label>
+        <input type="password" id="password" name="password" required autocomplete="current-password" />
+
+        <button type="submit">Увійти</button>
+      </form>
+      <p id="loginError" class="error"></p>
+    </section>
+
+    <!-- Адмін панель -->
+    <section id="adminSection" aria-live="polite" aria-atomic="true" aria-relevant="additions removals" hidden>
+      <p id="welcomeAdmin"></p>
+      <button id="logoutBtn" aria-label="Вийти з адмін панелі">Вийти</button>
+
+      <h3>Коментарі користувачів</h3>
+      <div id="commentsList" role="list" aria-label="Список коментарів"></div>
+
+      <button id="deleteAllCommentsBtn" title="Видалити всі коментарі (тільки суперадмін)">Видалити всі коментарі</button>
+
+      <!-- Редагування коментаря -->
+      <section id="editCommentSection" aria-live="polite" aria-atomic="true" aria-relevant="additions removals" hidden>
+        <h3>Редагування коментаря</h3>
+        <form id="editCommentForm" autocomplete="off">
+          <label for="editFullName">Повне ім'я:</label>
+          <input type="text" id="editFullName" name="editFullName" required />
+
+          <label for="editEmail">Електронна адреса:</label>
+          <input type="email" id="editEmail" name="editEmail" required />
+
+          <label for="editMessage">Повідомлення:</label>
+          <textarea id="editMessage" name="editMessage" required></textarea>
+
+          <button type="submit">Зберегти зміни</button>
+          <button type="button" id="cancelEditBtn">Відмінити</button>
+        </form>
+
+        <h4>Історія змін:</h4>
+        <div id="editHistory" aria-live="polite" aria-atomic="true"></div>
+      </section>
+
+      <!-- Список користувачів (для суперадміна) -->
+      <section id="userListSection" hidden>
+        <h3>Користувачі</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Ім'я користувача</th>
+              <th>Роль</th>
+              <th>Хеш пароля</th>
+            </tr>
+          </thead>
+          <tbody id="usersTableBody"></tbody>
+        </table>
+      </section>
+
+      <!-- Додавання користувача (тільки суперадмін) -->
+      <section id="addUserSection" hidden>
+        <h3>Додати користувача</h3>
+        <form id="addUserForm" autocomplete="off">
+          <label for="newUsername">Ім'я користувача:</label>
+          <input type="text" id="newUsername" name="newUsername" required autocomplete="off" />
+
+          <label for="newUserPassword">Пароль:</label>
+          <input type="password" id="newUserPassword" name="newUserPassword" required autocomplete="new-password" />
+
+          <label for="newUserRole">Роль:</label>
+          <select id="newUserRole" name="newUserRole" required>
+            <option value="moderator">Модератор</option>
+            <option value="superadmin">Суперадмін</option>
+          </select>
+
+          <button type="submit">Додати користувача</button>
+          <p id="addUserError" class="error"></p>
+          <p id="addUserSuccess" class="success"></p>
+        </form>
+      </section>
+
+      <!-- Зміна пароля -->
+      <section id="passwordChangeSection">
+        <h3>Змінити пароль</h3>
+        <form id="changePasswordForm" autocomplete="off">
+          <label for="oldPassword">Старий пароль:</label>
+          <input type="password" id="oldPassword" name="oldPassword" required autocomplete="current-password" />
+
+          <label for="newPassword">Новий пароль:</label>
+          <input type="password" id="newPassword" name="newPassword" required autocomplete="new-password" />
+
+          <button type="submit">Змінити пароль</button>
+          <p id="passwordChangeError" class="error"></p>
+          <p id="passwordChangeSuccess" class="success"></p>
+        </form>
+      </section>
+
+      <!-- Розділ журналу для суперадміну -->
+      <section id="logSection">
+  <h3>Журнал входів - виходів та змін паролів</h3>
+  <pre id="adminLog"></pre>
+  <button id="clearAdminLogBtn">Очистити журнал дій</button>
+</section>
+
+    </section>
+  </div>
+  
+  <script src="js/participantcomments.js"></script>
+</body>
+</html>

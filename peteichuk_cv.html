@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Peteichuk | Резюме</title>
+<link rel="icon" href="logotype/logotype.png">
+
+<style>
+:root{--text:#111827;--muted:#6b7280;--accent:#1f6feb;--bg:#eef2ff}
+
+/* БАЗА */
+body{font-family:Georgia,"Times New Roman",serif;margin:0;background:var(--bg);color:var(--text)}
+
+/* ОСНОВА */
+.wrap{max-width:900px;margin:0 auto;padding:20px}
+.card{background:#fff;border-radius:14px;box-shadow:0 6px 18px rgba(15,23,42,.08);padding:32px;display:grid;grid-template-columns:1fr 300px;gap:32px}
+
+/* ГОЛОВНИЙ КОНТЕНТ */
+.main-title{font-size:32px;font-weight:700;line-height:1.2;margin-bottom:24px;color:#111827}
+.section{margin-top:28px}
+.section h2{font-size:18px;font-weight:700;margin:0 0 18px;padding-bottom:8px;border-bottom:1px solid #e5e7eb}
+.article{font-size:16px;line-height:1.85;color:#374151;text-align:justify;hyphens:auto}
+.article p{margin:0 0 18px;text-indent:24px}
+
+/* ПРАВА ЧАСТИНА */
+.sidebar{font-family:Arial,Helvetica,sans-serif;font-size:14px;border-left:1px solid #e5e7eb;padding-left:24px}
+
+/* ПРОФІЛЬ */
+.profile{display:flex;align-items:center;gap:12px;margin-bottom:24px}
+.profile img{width:72px;height:72px;border-radius:12px;object-fit:cover}
+.profile-name{font-weight:600;line-height:1.3;color:#111827}
+
+/* КОНТАКТИ */
+.contact-row{display:flex;flex-direction:column;margin-bottom:14px}
+.contact-label{font-weight:700;font-size:12px;color:var(--muted);letter-spacing:.5px;text-transform:uppercase;margin-bottom:3px}
+.contact-value,.contact-value a{color:var(--accent);text-decoration:none;font-weight:600;word-break:break-word}
+.contact-value a:hover{text-decoration:underline}
+
+/* КНОПКА */
+.btn{position:fixed;top:12px;right:12px;padding:8px 12px;border:none;background:var(--accent);color:#fff;font-weight:600;cursor:pointer;border-radius:8px;z-index:999}
+
+/* ДРУК */
+@page{margin:0}
+@media print{body{background:#fff}.btn{display:none}.wrap{padding:0}.card{box-shadow:none;border-radius:0;padding:20mm}a{color:var(--accent)!important;text-decoration:none}}
+
+/* МОБІЛЬНИЙ */
+@media(max-width:800px){.card{grid-template-columns:1fr}.sidebar{border-left:none;border-top:1px solid #e5e7eb;padding-left:0;padding-top:24px}.main-title{font-size:28px}.article{text-align:left}}
+</style>
+</head>
+
+<body>
+
+<button class="btn" id="pdfBtn" onclick="window.print()">PDF</button>
+
+<div class="wrap">
+<div class="card">
+
+<!-- LEFT -->
+<div>
+
+<div class="main-title">
+  Петейчук Василь Васильович
+</div>
+
+<div class="section">
+<h2>Про мене та проєкт</h2>
+
+<div class="article">
+
+<p>
+Мене звати Василь Петейчук. Я є засновником і розробником цього проєкту.
+Сайт створений як довгострокова платформа, яка постійно розвивається та
+отримує нові можливості для користувачів.
+</p>
+
+<p>
+Програмування я вивчав самостійно, поступово переходячи від простих
+вебсторінок до складніших рішень. Для мене важливо не вивчення технологій
+самих по собі, а створення функцій, які реально корисні користувачам.
+</p>
+
+<p>
+На сьогодні реалізовано систему реєстрації та авторизації користувачів,
+коментарі, роботу з фото та відео, рекламні можливості, налаштування cookie
+та інші інструменти для роботи з контентом.
+</p>
+
+<p>
+Окрему увагу приділено безпеці, конфіденційності та дотриманню правил
+використання сервісу. Політики сайту регулярно оновлюються відповідно до
+розвитку проєкту та законодавчих вимог.
+</p>
+
+<p>
+У майбутньому планується розширення функціоналу, включаючи нові можливості
+для користувачів, партнерські пропозиції та додаткові сервіси взаємодії.
+</p>
+
+<p>
+Моя мета — створити стабільний і корисний ресурс, який буде розвиватися
+разом зі своєю спільнотою та приносити реальну користь користувачам.
+</p>
+
+</div>
+</div>
+
+</div>
+
+<!-- RIGHT -->
+<div class="sidebar">
+
+<div class="profile">
+  <img src="we/vasyl.jpg" alt="Фото">
+  <div class="profile-name">
+    Петейчук Василь<br>
+    Васильович
+  </div>
+</div>
+
+<div class="contact-row">
+  <div class="contact-label">Телефон</div>
+
+  <div class="contact-value">
+    <a href="#" onclick="copyPhone(event)">
+      +49 162 268 2966
+    </a>
+  </div>
+</div>
+
+<div class="contact-row">
+  <div class="contact-label">Email</div>
+  <div class="contact-value">
+    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=peteichukvasyl03@gmail.com" target="_blank">
+      peteichukvasyl03@gmail.com
+    </a>
+  </div>
+</div>
+
+<div class="contact-row">
+  <div class="contact-label">Сайт</div>
+  <div class="contact-value">
+    <a href="index.html">www.peteichuk.com</a>
+  </div>
+</div>
+
+<div class="contact-row">
+  <div class="contact-label">Локація</div>
+  <div class="contact-value">Німеччина</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</body>
+<script>
+/* керування кнопкою PDF */
+const PDF_ENABLED = false;
+
+const pdfBtn = document.getElementById("pdfBtn");
+
+if (pdfBtn && !PDF_ENABLED) {
+  pdfBtn.style.display = "none";
+}
+
+/* копіювання телефону */
+function copyPhone(event) {
+  event.preventDefault();
+
+  const phone = "+49 162 268 2966";
+
+  navigator.clipboard.writeText(phone)
+    .then(() => {
+      const el = event.target;
+      const oldText = el.textContent;
+
+      el.textContent = "Скопійовано";
+
+      setTimeout(() => {
+        el.textContent = oldText;
+      }, 1500);
+    })
+    .catch(() => {
+      alert("Не вдалося скопіювати номер");
+    });
+}
+</script>
+
+</html>

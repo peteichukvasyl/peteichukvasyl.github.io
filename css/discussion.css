@@ -1,0 +1,405 @@
+/* =========================
+   BACKGROUND (GLOBAL PAGE)
+========================= */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  user-select: none;
+  position: relative;
+  max-width: 100%;
+  margin: 0;
+  background: #000;
+  background-image: url(../image/peteichuk-dunkel-fon.png);
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* =========================
+   GLOBAL RESET
+========================= */
+* {
+  text-decoration: none;
+  box-sizing: border-box;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  color: #fff;
+}
+
+/* =========================
+   BASE LAYOUT
+========================= */
+.ccw-container {
+  max-width: 520px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+  color: #fff;
+}
+
+.ccw-title {
+  font-weight: 700;
+  font-size: 14px;
+  margin-bottom: 10px;
+  color: #fff;
+  margin-left: 20px;
+}
+
+.ccw-form,
+.ccw-auth-form {
+  background: transparent;
+  padding-left: 20px;
+  margin-bottom: 10px;
+}
+
+.ccw-auth-form h3 {
+  color: #fff;
+}
+
+/* =========================
+   INPUTS
+========================= */
+.ccw-input,
+.ccw-textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 16px;
+  border: none;
+  font-size: 15px;
+  resize: vertical;
+  box-sizing: border-box;
+  background: transparent;
+  color: #fff;
+  outline: none;
+}
+
+/* =========================
+   SUBMIT BUTTON
+========================= */
+.ccw-btn-submit {
+  background: transparent;
+  border: 1px solid #fff;
+  color: #fff;
+  font-weight: 700;
+  font-size: 16px;
+  padding: 12px;
+  width: 100%;
+  cursor: pointer;
+  border-radius: 30px;
+  transition: 0.3s;
+}
+
+.ccw-btn-submit:hover:not(:disabled) {
+  background: #fff;
+  color: #000;
+}
+
+.ccw-btn-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* =========================
+   COMMENTS LIST
+========================= */
+.ccw-comments-list {
+  max-width: 600px;
+}
+
+/* =========================
+   COMMENT CARD (LIKE ADMIN STYLE)
+========================= */
+.ccw-comment {
+  position: relative;
+  padding: 16px;
+  margin-bottom: 10px;
+  border: 1px solid transparent;
+  background: transparent;
+  color: #fff;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  transition: 0.3s;
+}
+
+/* =========================
+   HEADER INSIDE COMMENT
+========================= */
+.ccw-comment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.ccw-comment-author {
+  font-weight: 700;
+  font-size: 16px;
+  white-space: nowrap;
+}
+
+.ccw-comment-date {
+  font-size: 12px;
+  opacity: 0.8;
+  white-space: nowrap;
+}
+
+/* =========================
+   COMMENT TEXT
+========================= */
+.ccw-comment-text {
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+/* =========================
+   BUTTONS CONTAINER (IMPORTANT FIX)
+   TOP RIGHT INSIDE COMMENT
+========================= */
+.ccw-comment-buttons {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+
+  display: flex;
+  gap: 6px;
+
+  opacity: 0;
+  transition: 0.2s;
+}
+
+/* show on hover */
+.ccw-comment:hover .ccw-comment-buttons {
+  opacity: 1;
+}
+
+/* prevent overlap with text */
+.ccw-comment > .ccw-comment-text {
+  margin-top: 28px;
+}
+
+/* =========================
+   BUTTON BASE INSIDE COMMENT
+========================= */
+.ccw-comment-buttons button {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #fff;
+  font-size: 11px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: 0.2s;
+  font-weight: 600;
+}
+
+.ccw-comment-buttons button:hover {
+  background: #fff;
+  color: #000;
+}
+
+/* =========================
+   SAVE / CANCEL (EDIT MODE)
+========================= */
+.ccw-edit-textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #fff;
+  outline: none;
+  resize: vertical;
+}
+
+.ccw-edit-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.ccw-edit-actions button {
+  padding: 6px 12px;
+  font-size: 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: transparent;
+  color: #fff;
+  transition: 0.2s;
+}
+
+.ccw-edit-actions button:hover {
+  background: #fff;
+  color: #000;
+}
+
+/* =========================
+   AUTH INFO BAR
+========================= */
+.auth-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 20px;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+.logout-btn {
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid #fff;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.logout-btn:hover {
+  background: #fff;
+  color: #000;
+}
+
+/* =========================
+   ADMIN / ACTION BUTTONS (INSIDE COMMENT)
+========================= */
+.edit,
+.delete,
+.warn,
+.ban,
+.unban {
+  padding: 5px 10px;
+  font-size: 11px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 600;
+  border: 1px solid transparent;
+  transition: 0.2s;
+}
+
+/* EDIT */
+.edit {
+  color: #4fc3ff;
+  border-color: rgba(79,195,255,0.4);
+}
+.edit:hover {
+  background: #4fc3ff;
+  color: #000;
+}
+
+/* DELETE */
+.delete {
+  color: #ff6b6b;
+  border-color: rgba(255,107,107,0.4);
+}
+.delete:hover {
+  background: #ff4d4d;
+  color: #fff;
+}
+
+/* WARN */
+.warn {
+  color: #ffc107;
+  border-color: rgba(255,193,7,0.4);
+}
+.warn:hover {
+  background: #ffc107;
+  color: #000;
+}
+
+/* BAN */
+.ban {
+  color: #ff3b3b;
+  border-color: rgba(255,59,59,0.4);
+}
+.ban:hover {
+  background: #ff0000;
+  color: #fff;
+}
+
+/* UNBAN */
+.unban {
+  color: #00ff88;
+  border-color: rgba(0,255,136,0.4);
+}
+.unban:hover {
+  background: #00ff88;
+  color: #000;
+}
+
+/* =========================
+   GLOBAL CLICK EFFECT
+========================= */
+.edit:active,
+.delete:active,
+.warn:active,
+.ban:active,
+.unban:active {
+  transform: scale(0.95);
+}
+
+/* =========================
+   LOGO + GLOBAL
+========================= */
+.logotype {
+  text-align: center;
+  font-size: 20px;
+  margin: 5% 0;
+}
+
+.logotype a {
+  color: #fff;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: Georgia, serif;
+  color: #fff;
+}
+
+/* =========================
+   SCROLLBAR
+========================= */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #0e0e0e;
+}
+
+::-webkit-scrollbar-track {
+  background: #303030;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 600px) {
+  .ccw-container {
+    max-width: 100%;
+    padding: 0 10px;
+  }
+
+  .ccw-comment-buttons {
+    gap: 4px;
+  }
+
+  .ccw-comment-buttons button {
+    font-size: 10px;
+    padding: 3px 6px;
+  }
+
+  .ccw-comment-author {
+    font-size: 14px;
+  }
+
+  .ccw-comment-date {
+    font-size: 10px;
+  }
+}

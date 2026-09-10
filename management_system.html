@@ -1,0 +1,1102 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Peteichuk | Система управління</title>
+  <link rel="icon" href="../peteichuk/logotype/logotype.png"/>
+  <!--
+    ⚠️ ЮРИДИЧНЕ ЗАСТЕРЕЖЕННЯ
+    Цей інструмент призначений лише для легітимної модерації у відповідності до законів (GDPR/ДПД, ePrivacy тощо) і політик вашого сайту.
+    Збирайте тільки необхідні дані, отримуйте згоду, надавайте користувачам доступ/видалення даних, ведіть реєстр обробки.
+    Код нижче не надсилає дані у зовнішні сервіси — усе зберігається у LocalStorage браузера для демо.
+    Для продакшн-рішення підключіть серверну частину з аутентифікацією, аудитом і журналюванням.
+  -->
+  <style>
+    :root{
+      --bg:#0b1020; --panel:#121932; --muted:#9aa4bf; --txt:#eef2ff; --accent:#6ea8fe; --accent-2:#9dffa3; --danger:#ff6b6b; --warn:#ffd166; --ok:#54d6a1;
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    ::-webkit-scrollbar{
+    width: 10px;
+}
+::-webkit-scrollbar-thumb{
+    background-color: #0e0e0e;
+}
+::-webkit-scrollbar-track{
+    background-color: #0b1227;
+}
+
+    html,body{height:100%}
+    body{margin:0;font:14px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, "Noto Sans", "Helvetica Neue", Arial, "Apple Color Emoji","Segoe UI Emoji"; background:linear-gradient(180deg,#050814,#0b1020 40%,#0b1020 100%); color:var(--txt)}
+    header{position:sticky;top:0;z-index:50;background:rgba(11,16,32,.85);backdrop-filter: blur(8px);border-bottom:1px solid #2a3357}
+    .wrap{max-width:1200px;margin:0 auto;padding:18px}
+    h1{margin:0;font-size:22px;display:flex;align-items:center;gap:10px}
+    .tag{font-size:12px;color:#0b1020;background:linear-gradient(90deg,#9dffa3,#6ea8fe);padding:2px 8px;border-radius:999px}
+    .grid{display:grid;gap:16px}
+    @media(min-width:900px){.grid.cols-3{grid-template-columns:2fr 1fr}}
+    .card{background:linear-gradient(180deg,#121932,#0f1730);border:1px solid #232b4a;border-radius:var(--radius);box-shadow:var(--shadow)}
+    .card .head{padding:14px 16px;border-bottom:1px solid #232b4a;display:flex;align-items:center;justify-content:space-between}
+    .card .body{padding:16px}
+    .controls{display:flex;flex-wrap:wrap;gap:10px}
+    input,select,textarea,button{background:#0e1530;border:1px solid #28325a;color:var(--txt);border-radius:12px;padding:10px 12px;outline:none}
+    input:focus,select:focus,textarea:focus{border-color:#3f4a7a;box-shadow:0 0 0 3px rgba(110,168,254,.15)}
+    button{cursor:pointer;transition:.15s transform}
+    button:hover{transform:translateY(-1px)}
+    .btn{background:linear-gradient(180deg,#1a2450,#111a3d);border:1px solid #32407a}
+    .btn-acc{background:linear-gradient(180deg,#1b3b76,#102a63);border-color:#315ea1}
+    .btn-ok{background:linear-gradient(180deg,#165b3e,#0d3f2b);border-color:#2e8b5a}
+    .btn-warn{background:linear-gradient(180deg,#6a560c,#3f3205);border-color:#9a7f14}
+    .btn-danger{background:linear-gradient(180deg,#6a1313,#400b0b);border-color:#a53333}
+
+    table{width:100%;border-collapse:separate;border-spacing:0 10px}
+    thead th{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);text-align:left;padding:0 10px}
+    tbody tr{background:linear-gradient(180deg,#121932,#0f1730);box-shadow:var(--shadow);border:1px solid #232b4a}
+    tbody td{padding:12px 10px;border-top:1px solid #232b4a;border-bottom:1px solid #232b4a}
+    tbody tr td:first-child{border-left:1px solid #232b4a;border-top-left-radius:14px;border-bottom-left-radius:14px}
+    tbody tr td:last-child{border-right:1px solid #232b4a;border-top-right-radius:14px;border-bottom-right-radius:14px}
+
+    .pill{padding:4px 8px;border-radius:999px;font-size:12px;border:1px solid #2b355d}
+    .pill.ok{background:rgba(84,214,161,.1);border-color:#2e6f56;color:#b4f5dc}
+    .pill.warn{background:rgba(255,209,102,.1);border-color:#8a6e20;color:#ffe7a8}
+    .pill.ban{background:rgba(255,107,107,.1);border-color:#7f2d2d;color:#ffc1c1}
+    .muted{color:var(--muted)}
+    .row-actions{display:flex;gap:8px;flex-wrap:wrap}
+    .sp{height:1px;background:#26305a;margin:10px 0}
+
+    .log{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size:12px; max-height:260px; overflow:auto; white-space:pre-wrap}
+    .footer{display:flex;gap:10px;align-items:center;justify-content:space-between;color:var(--muted);font-size:12px}
+    .kbd{font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; background:#0d1430;border:1px solid #2b355d;padding:2px 6px;border-radius:6px}
+
+    .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(2,8,20,.6);backdrop-filter: blur(6px);z-index:100}
+    .modal.open{display:flex}
+    .modal .panel{width:min(720px,92vw); background:linear-gradient(180deg,#121932,#0f1730); border:1px solid #232b4a; border-radius:18px; box-shadow:var(--shadow)}
+    .modal .panel .body{padding:16px}
+ .logotype {
+  max-width: 200px;
+  text-align: left;
+  font-size: 20px;
+  margin-left: 25px;
+  margin-top: 20px;
+  position: relative;
+  z-index: 9999999;
+}
+.logotype a {
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+*{
+    text-decoration: none;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    box-sizing: border-box;
+}
+    .toast{position:fixed;right:16px;bottom:16px;display:grid;gap:8px;z-index:200}
+    .toast .t{background:#0e1530;border:1px solid #28325a;padding:10px 12px;border-radius:12px;box-shadow:var(--shadow)}
+  @keyframes floatGlow {
+  0% {
+    transform: translate(0,0) scale(1);
+    opacity: 0.35;
+  }
+  50% {
+    transform: translate(-10px, 8px) scale(1.1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate(0,0) scale(1);
+    opacity: 0.35;
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+.login-glow {
+  position: relative;
+  overflow: hidden;
+}
+
+/* живе світіння позаду */
+.login-glow::before {
+  content: "";
+  position: absolute;
+  inset: -40px;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(110,168,254,.35), transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(157,255,163,.25), transparent 45%),
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,.08), transparent 60%);
+  filter: blur(20px);
+  animation: floatGlow 6s ease-in-out infinite;
+  z-index: 0;
+}
+
+/* легке мерехтіння поверх */
+.login-glow::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    rgba(255,255,255,0.05),
+    rgba(255,255,255,0.02),
+    rgba(255,255,255,0.06)
+  );
+  background-size: 200% 200%;
+  animation: shimmer 6s linear infinite;
+  opacity: 0.4;
+  z-index: 0;
+}
+
+.login-content {
+  position: relative;
+  z-index: 1;
+}
+
+body {
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* базовий глибокий фон (ти вже маєш, але підсилюємо) */
+body::before {
+  content: "";
+  position: fixed;
+  inset: -20%;
+  z-index: -2;
+
+  background:
+    radial-gradient(circle at 20% 30%, rgba(110,168,254,.18), transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(157,255,163,.12), transparent 45%),
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,.05), transparent 60%);
+
+  filter: blur(40px);
+  animation: floatGlow 10s ease-in-out infinite;
+  transform: scale(1.2);
+}
+
+/* легке “живе мерехтіння” поверх */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+
+  background: linear-gradient(
+    120deg,
+    rgba(255,255,255,0.03),
+    rgba(255,255,255,0.01),
+    rgba(255,255,255,0.04)
+  );
+
+  background-size: 200% 200%;
+  animation: shimmer 8s linear infinite;
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+/* трохи підсилюємо вже існуючу анімацію */
+@keyframes floatGlow {
+  0%   { transform: translate(0,0) scale(1.1); opacity: 0.35; }
+  50%  { transform: translate(-30px, 20px) scale(1.25); opacity: 0.6; }
+  100% { transform: translate(0,0) scale(1.1); opacity: 0.35; }
+}
+  </style>
+</head>
+<body>
+ <div class="logotype"><a href="index.html">P e t e i c h u k</a></div>
+  <div id="app">
+  
+  <header>
+    <div class="wrap" style="display:flex;gap:14px;align-items:center;justify-content:space-between">
+      <div class="controls">
+        <input id="search" placeholder="Пошук: ім'я, email, IP, примітка…" />
+        <select id="filterStatus">
+          <option value="all">Статус: всі</option>
+          <option value="active">Активні</option>
+          <option value="warned">З попередженням</option>
+          <option value="banned">Заблоковані</option>
+        </select>
+        <select id="filterRole">
+          <option value="all">Роль: всі</option>
+          <option value="user">Користувач</option>
+          <option value="moderator">Модератор</option>
+          <option value="admin">Адмін</option>
+        </select>
+        <button class="btn" id="bulkWarn">Масове попередження</button>
+        <button class="btn-warn" id="bulkTempBan">Масове тимчасове блокування</button>
+        <button class="btn-danger" id="bulkDelete">Масове видалення</button>
+        <button class="btn-acc" id="exportBtn" title="Завантажити JSON">Експорт</button>
+        <label class="btn" for="importFile" title="Імпорт JSON" style="display:inline-flex;align-items:center;gap:6px">Імпорт<input type="file" id="importFile" accept="application/json" style="display:none"/></label>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap grid cols-3" style="margin-top:16px">
+    <section class="card">
+      <div class="head"><strong>Панель користувачів</strong><span class="muted" id="count"></span></div>
+      <div class="body">
+        <div style="overflow:auto">
+          <table>
+            <thead>
+              <tr>
+                <th><input type="checkbox" id="checkAll"/></th>
+                <th>ID</th>
+                <th>Ім'я</th>
+                <th>Email</th>
+                <th>IP</th>
+                <th>Роль</th>
+                <th>Статус</th>
+                <th>Порушення</th>
+                <th>Бан до</th>
+                <th>Примітка</th>
+                <th>Дії</th>
+              </tr>
+            </thead>
+            <tbody id="tbody"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="footer body">
+        <div>Порада: натисніть <span class="kbd">/</span> для фокусу пошуку, <span class="kbd">N</span> — новий користувач.</div>
+        <div id="clock"></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="head"><strong>Додати / Редагувати користувача</strong></div>
+      <div class="body">
+        <form id="userForm" class="grid" style="grid-template-columns:1fr 1fr; gap:10px">
+          <input name="id" placeholder="ID (авто, якщо порожньо)" />
+          <select name="role">
+            <option value="user">Користувач</option>
+            <option value="moderator">Модератор</option>
+            <option value="admin">Адмін</option>
+          </select>
+          <input name="name" placeholder="Ім'я" required />
+          <input name="email" placeholder="Email" required />
+          <input name="ip" placeholder="IP (v4/v6)" />
+          <input name="note" placeholder="Примітка" />
+          <div style="grid-column:1/-1;display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+            <button class="btn-ok" type="submit">Зберегти</button>
+            <button class="btn" type="button" id="resetForm">Очистити</button>
+            <label style="display:flex;gap:6px;align-items:center"><input type="checkbox" id="maskIp"/> Маскувати IP у таблиці</label>
+          </div>
+        </form>
+        <div class="sp"></div>
+        <div class="controls">
+          <button class="btn-warn" id="issueWarning">Виставити попередження</button>
+          <button class="btn-danger" id="permaban">Перманентний бан</button>
+          <button class="btn-acc" id="tempban">Тимчасовий бан</button>
+          <button class="btn" id="clearBan">Зняти бан</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="head"><strong>Журнал подій (Audit Log)</strong><button class="btn" id="clearLog">Очистити</button></div>
+      <div class="body log" id="log"></div>
+    </section>
+  </main>
+
+  <!-- MODALS -->
+  <div class="modal" id="banModal">
+    <div class="panel">
+      <div class="head"><strong>Тимчасове блокування</strong><button class="btn" id="closeBanModal">✕</button></div>
+      <div class="body">
+        <form id="banForm" class="grid" style="grid-template-columns:1fr 1fr; gap:10px">
+          <input name="reason" placeholder="Причина" required />
+          <select name="unit">
+            <option value="minutes">Хвилини</option>
+            <option value="hours">Години</option>
+            <option value="days">Дні</option>
+            <option value="months">Місяці</option>
+            <option value="years">Роки</option>
+          </select>
+          <input name="amount" type="number" min="1" step="1" value="30" placeholder="Кількість" required />
+          <select name="violation">
+            <option value="spam">Спам</option>
+            <option value="abuse">Мова ворожнечі</option>
+            <option value="nsfw">NSFW</option>
+            <option value="fraud">Шахрайство</option>
+            <option value="other">Інше</option>
+          </select>
+          <div style="grid-column:1/-1;display:flex;gap:8px;align-items:center">
+            <button class="btn-warn" type="submit">Заблокувати</button>
+            <button class="btn" type="button" id="previewBan">Попередній перегляд</button>
+            <span class="muted" id="banPreview"></span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  </div>
+  <script>
+    
+// ===================== AUTH CORE =====================
+
+const AUTH_KEY = 'moderation.auth.session.v1';
+
+const ADMINS = [
+  {
+    username: 'admin',
+    passwordHash: '8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918'
+  },
+  {
+    username: 'moderator',
+    passwordHash: 'cfde2ca5188afb7bdd0691c7bef887baba78b709aadde8e8c535329d5751e6fe'
+  }
+];
+
+// SHA-256
+async function sha256(str) {
+  const buf = new TextEncoder().encode(str);
+  const hash = await crypto.subtle.digest('SHA-256', buf);
+  return [...new Uint8Array(hash)]
+    .map(b => b.toString(16).padStart(2, '0'))
+    .join('');
+}
+
+// SESSION
+function setSession(user) {
+  sessionStorage.setItem(AUTH_KEY, JSON.stringify({
+    username: user.username,
+    t: Date.now()
+  }));
+}
+
+function getSession() {
+  try { return JSON.parse(sessionStorage.getItem(AUTH_KEY)); }
+  catch { return null; }
+}
+
+function clearSession() {
+  sessionStorage.removeItem(AUTH_KEY);
+}
+
+function isAuth() {
+  return !!getSession();
+}
+
+// UI LOCK
+function lockUI() {
+  const app = document.querySelector('#app');
+  if (app) app.style.display = 'none';
+}
+
+function unlockUI() {
+  const app = document.querySelector('#app');
+  if (app) app.style.display = 'block';
+}
+
+// ===================== BASE UTILS =====================
+
+const $ = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+
+const now = () => Date.now();
+const uid = () => Math.random().toString(36).slice(2, 10);
+const fmtDateTime = d => new Date(d).toLocaleString('uk-UA');
+
+const emailRx = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+const ipv4Rx = /^(25[0-5]|2[0-4]\d|[01]?\d\d?)(\.(25[0-5]|2[0-4]\d|[01]?\d\d?)){3}$/;
+const ipv6Rx = /^([\da-f]{1,4}:){7}[\da-f]{1,4}$/i;
+
+// notify
+function notify(msg) {
+  const n = document.createElement('div');
+  n.className = 't';
+  n.textContent = msg;
+
+  const box = document.querySelector('#toast');
+  if (box) box.appendChild(n);
+
+  setTimeout(() => n.remove(), 3500);
+}
+
+// helpers
+function maskIp(ip){
+  if(!ip) return '';
+  if(ip.includes('.')){
+    const p = ip.split('.');
+    return `${p[0]}.${p[1]}.***.***`;
+  }
+  if(ip.includes(':')){
+    return ip.split(':').slice(0,4).join(':') + ':****';
+  }
+  return ip;
+}
+
+function parseDuration(amount, unit){
+  amount = Math.max(1, parseInt(amount||1,10));
+  const map = {
+    minutes: 60000,
+    hours: 3600000,
+    days: 86400000
+  };
+  return amount * (map[unit] || 60000);
+}
+
+function countdownStr(until){
+  const ms = until - now();
+  if(ms <= 0) return 'закінчено';
+  const s = Math.floor(ms/1000)%60;
+  const m = Math.floor(ms/60000)%60;
+  const h = Math.floor(ms/3600000)%24;
+  const d = Math.floor(ms/86400000);
+  return `${d?d+'д ':''}${h?h+'г ':''}${m?m+'хв ':''}${s}с`;
+}
+</script>
+
+<script>
+// ===================== STORAGE =====================
+
+const DB_KEY = 'moderation.users.v1';
+const LOG_KEY = 'moderation.audit.v1';
+
+const DB = {
+  getAll() {
+    try { return JSON.parse(localStorage.getItem(DB_KEY) || '[]'); }
+    catch { return []; }
+  },
+  saveAll(data) {
+    localStorage.setItem(DB_KEY, JSON.stringify(data));
+  },
+  upsert(user) {
+    const all = this.getAll();
+    const i = all.findIndex(u => u.id === user.id);
+    if (i >= 0) all[i] = user;
+    else all.push(user);
+    this.saveAll(all);
+  },
+  remove(ids) {
+    const all = this.getAll().filter(u => !ids.includes(u.id));
+    this.saveAll(all);
+  }
+};
+
+const AUDIT = {
+  all() {
+    try { return JSON.parse(localStorage.getItem(LOG_KEY) || '[]'); }
+    catch { return []; }
+  },
+  add(evt) {
+    const all = this.all();
+    all.unshift(evt);
+    localStorage.setItem(LOG_KEY, JSON.stringify(all.slice(0, 2000)));
+  },
+  clear() {
+    localStorage.removeItem(LOG_KEY);
+  }
+};
+
+// ===================== STATE =====================
+
+const state = {
+  search: '',
+  filterStatus: 'all',
+  filterRole: 'all',
+  selected: new Set(),
+  maskIp: false
+};
+
+// ===================== FILTER =====================
+
+function filteredUsers() {
+  const q = state.search.toLowerCase();
+
+  return DB.getAll().filter(u => {
+    const matchQ =
+      !q ||
+      [u.id, u.name, u.email, u.ip, u.note, u.status]
+        .some(x => String(x || '').toLowerCase().includes(q));
+
+    const statusOk =
+      state.filterStatus === 'all' || u.status === state.filterStatus;
+
+    const roleOk =
+      state.filterRole === 'all' || u.role === state.filterRole;
+
+    return matchQ && statusOk && roleOk;
+  });
+}
+</script>
+
+<script>
+// ===================== РЕНДЕР =====================
+
+function render() {
+  const list = filteredUsers();
+  const tbody = $('#tbody');
+  const count = $('#count');
+
+  if (count) {
+    count.textContent = `Відображено ${list.length} / ${DB.getAll().length}`;
+  }
+
+  if (!tbody) return;
+
+  tbody.innerHTML = '';
+
+  list.forEach(u => {
+    const tr = document.createElement('tr');
+
+    const td = (html) => {
+      const c = document.createElement('td');
+      c.innerHTML = html;
+      tr.appendChild(c);
+    };
+
+    td(`
+      <input type="checkbox" data-id="${u.id}"
+      ${state.selected.has(u.id) ? 'checked' : ''}>
+    `);
+
+    td(u.id || '');
+    td(`<b>${u.name || ''}</b>`);
+    td(u.email || '');
+    td(state.maskIp ? maskIp(u.ip) : (u.ip || ''));
+    td(u.role || 'user');
+    td(u.status || 'active');
+
+    td(
+      (u.violations || [])
+        .map(v => `<span class="pill warn">${v.type}</span>`)
+        .join(' ')
+    );
+
+    td(u.banUntil ? fmtDateTime(u.banUntil) : '');
+    td(u.note || '');
+
+    td(`
+      <button data-act="edit" data-id="${u.id}">Редагувати</button>
+      <button data-act="warn" data-id="${u.id}">Попередити</button>
+      <button data-act="tempban" data-id="${u.id}">Тимчасова блокування</button>
+      <button data-act="ban" data-id="${u.id}">Заблокувати</button>
+      <button data-act="unban" data-id="${u.id}">Розблокувати</button>
+      <button data-act="del" data-id="${u.id}">Видалити</button>
+    `);
+
+    tbody.appendChild(tr);
+  });
+
+  bindRowEvents();
+  bindCheckboxes();
+}
+
+// ===================== ROW EVENTS =====================
+
+function bindRowEvents() {
+  $$('#tbody [data-act]').forEach(btn => {
+    btn.onclick = () => {
+      const id = btn.dataset.id;
+      const act = btn.dataset.act;
+
+      const u = DB.getAll().find(x => x.id === id);
+      if (!u) return;
+
+      if (act === 'edit') fillForm(u);
+      if (act === 'warn') warn([u]);
+      if (act === 'ban') ban([u]);
+      if (act === 'tempban') openTempBan([u]);
+      if (act === 'unban') unban([u]);
+      if (act === 'del') del([u.id]);
+    };
+  });
+}
+
+// ===================== CHECKBOXES =====================
+
+function bindCheckboxes() {
+  $$('#tbody input[type="checkbox"]').forEach(cb => {
+    cb.onchange = () => {
+      const id = cb.dataset.id;
+
+      if (cb.checked) {
+        state.selected.add(id);
+      } else {
+        state.selected.delete(id);
+      }
+    };
+  });
+}
+</script>
+
+<script>
+// ===================== CRUD =====================
+
+function sanitize(u) {
+  if (u.email && !emailRx.test(u.email)) throw new Error('некоректний email');
+  if (u.ip && !(ipv4Rx.test(u.ip) || ipv6Rx.test(u.ip))) throw new Error('некоректна IP-адреса');
+
+  return {
+    ...u,
+    name: (u.name || '').trim(),
+    note: (u.note || '').trim(),
+    role: u.role || 'user',
+    status: u.status || 'active',
+    violations: u.violations || [],
+    banUntil: u.banUntil || null
+  };
+}
+
+function saveUser(u) {
+  try {
+    u = sanitize(u);
+
+    if (!u.id) u.id = uid();
+
+    DB.upsert(u);
+    log('save-user', u);
+
+    render();
+    notify('Збережено');
+  } catch (e) {
+    notify('Помилка: ' + e.message);
+  }
+}
+
+function del(ids) {
+  DB.remove(ids);
+  ids.forEach(id => state.selected.delete(id));
+
+  log('delete', ids);
+  render();
+}
+
+// ===================== MODERATION =====================
+
+function warn(users) {
+  const reason = prompt('Причина попередження');
+  if (!reason) return;
+
+  const all = DB.getAll();
+
+  users.forEach(u => {
+    const i = all.findIndex(x => x.id === u.id);
+    if (i >= 0) {
+      all[i].status = 'warned';
+      all[i].violations.push({
+        type: 'warn',
+        reason,
+        t: now()
+      });
+    }
+  });
+
+  DB.saveAll(all);
+  log('warn', users.map(u => u.id));
+  render();
+}
+
+function ban(users) {
+  const reason = prompt('Причина блокування');
+  if (!reason) return;
+
+  const all = DB.getAll();
+
+  users.forEach(u => {
+    const i = all.findIndex(x => x.id === u.id);
+
+    if (i >= 0) {
+      all[i].status = 'banned';
+      all[i].banUntil = null;
+
+      all[i].violations.push({
+        type: 'ban',
+        reason,
+        t: now()
+      });
+    }
+  });
+
+  DB.saveAll(all);
+  log('ban', users.map(u => u.id));
+  render();
+}
+
+function unban(users) {
+  const all = DB.getAll();
+
+  users.forEach(u => {
+    const i = all.findIndex(x => x.id === u.id);
+
+    if (i >= 0) {
+      all[i].status = 'active';
+      all[i].banUntil = null;
+    }
+  });
+
+  DB.saveAll(all);
+  log('unban', users.map(u => u.id));
+  render();
+}
+
+// ===================== TEMP BAN =====================
+
+function openTempBan(users) {
+  const mins = prompt('Minutes ban');
+  if (!mins || isNaN(mins)) return;
+
+  const until = now() + Number(mins) * 60000;
+
+  const all = DB.getAll();
+
+  users.forEach(u => {
+    const i = all.findIndex(x => x.id === u.id);
+
+    if (i >= 0) {
+      all[i].status = 'banned';
+      all[i].banUntil = until;
+
+      all[i].violations.push({
+        type: 'tempban',
+        duration: mins,
+        t: now()
+      });
+    }
+  });
+
+  DB.saveAll(all);
+  log('tempban', { users: users.map(u => u.id), until });
+  render();
+}
+</script>
+
+<script>
+
+// ===================== FORM =====================
+
+function fillForm(u) {
+  const f = $('#userForm');
+  if (!f) return;
+
+  f.id.value = u.id || '';
+  f.name.value = u.name || '';
+  f.email.value = u.email || '';
+  f.ip.value = u.ip || '';
+  f.note.value = u.note || '';
+  f.role.value = u.role || 'user';
+}
+
+function bindForm() {
+  const form = $('#userForm');
+  if (!form) return;
+
+  form.onsubmit = (e) => {
+    e.preventDefault();
+
+    const u = Object.fromEntries(new FormData(form));
+    saveUser(u);
+
+    form.reset();
+  };
+}
+function showLogin() {
+  const box = document.createElement('div');
+
+  box.style.cssText = `
+    position:fixed;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:999999;
+
+    background:
+      radial-gradient(circle at 20% 20%, rgba(110,168,254,.18), transparent 40%),
+      radial-gradient(circle at 80% 30%, rgba(157,255,163,.12), transparent 40%),
+      linear-gradient(180deg, rgba(5,8,20,.65), rgba(11,16,32,.75));
+
+    backdrop-filter: blur(12px);
+  `;
+
+  box.innerHTML = `
+  <div class="login-glow" style="
+    background: rgba(18,25,50,0.55);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 22px;
+    border-radius: 16px;
+    width: 300px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.35);
+    color: #eef2ff;
+  ">
+
+    <div class="login-content">
+
+      <h3 style="margin:0 0 12px 0; font-size:18px;">
+        Вхід адміністратора
+      </h3>
+
+      <input id="authUser"
+        placeholder="Ім'я користувача"
+        style="width:100%;margin-bottom:10px;padding:10px;border-radius:12px;border:1px solid rgba(255,255,255,0.12);background:rgba(14,21,48,.6);color:#eef2ff;outline:none"
+      >
+
+      <input id="authPass"
+        type="password"
+        placeholder="Пароль"
+        style="width:100%;margin-bottom:10px;padding:10px;border-radius:12px;border:1px solid rgba(255,255,255,0.12);background:rgba(14,21,48,.6);color:#eef2ff;outline:none"
+      >
+
+      <button id="authBtn"
+        style="
+          width:100%;
+          padding:10px;
+          border-radius:12px;
+          border:1px solid rgba(110,168,254,.4);
+          background: linear-gradient(180deg, rgba(26,36,80,.9), rgba(17,26,61,.8));
+          color:#eef2ff;
+          cursor:pointer;
+          transition:.2s;
+        "
+      >
+        Увійти
+      </button>
+
+      <div id="authErr"
+        style="color:#ff6b6b;font-size:12px;margin-top:8px;min-height:14px"
+      ></div>
+
+    </div>
+  </div>
+`;
+
+  document.body.appendChild(box);
+
+  document.getElementById('authBtn').onclick = async () => {
+    const u = document.getElementById('authUser').value;
+    const p = document.getElementById('authPass').value;
+
+    const hash = await sha256(p);
+
+    const admin = ADMINS.find(a =>
+      a.username === u && a.passwordHash === hash
+    );
+
+    if (!admin) {
+      document.getElementById('authErr').textContent = 'Невірний логін або пароль';
+      return;
+    }
+
+    setSession(admin);
+    box.remove();
+    startApp();
+  };
+}
+
+ // ===================== START APP =====================
+
+function startApp() {
+  unlockUI();
+
+  bindUI();
+  bindForm();
+  seed();
+
+  render();
+  renderLog();
+
+  notify('Адміністратор увійшов');
+
+  const btn = document.createElement('button');
+  btn.textContent = 'Вийти';
+
+  btn.style.cssText = `
+    position:fixed;
+    top:10px;
+    right:10px;
+    z-index:99999;
+    padding:10px;
+  `;
+
+  btn.onclick = () => {
+    clearSession();
+    location.reload();
+  };
+
+  document.body.appendChild(btn);
+}
+// ===================== INIT =====================
+
+(function init() {
+  lockUI();
+
+  if (isAuth()) {
+    startApp();
+  } else {
+    showLogin();
+  }
+})();
+
+
+
+// ===================== EXPORT / IMPORT =====================
+
+function exportData() {
+  const data = {
+    users: DB.getAll(),
+    audit: AUDIT.all()
+  };
+
+  const blob = new Blob([JSON.stringify(data, null, 2)], {
+    type: 'application/json'
+  });
+
+  const url = URL.createObjectURL(blob);
+
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'backup.json';
+  a.click();
+
+  URL.revokeObjectURL(url);
+}
+
+function importData(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+
+  reader.onload = () => {
+    try {
+      const data = JSON.parse(reader.result);
+
+      if (data.users) DB.saveAll(data.users);
+      if (data.audit) localStorage.setItem(LOG_KEY, JSON.stringify(data.audit));
+
+      render();
+      renderLog();
+
+      notify('Імпортовано');
+    } catch {
+      notify('Помилка імпорту');
+    }
+  };
+
+  reader.readAsText(file);
+}
+
+
+// ===================== CORE LOG FIX =====================
+
+function log(action, data = null) {
+  AUDIT.add({
+    action,
+    data,
+    t: Date.now()
+  });
+}
+
+// щоб не падало, якщо десь використовується
+const safeGet = (fn, fallback = null) => {
+  try { return fn(); } catch { return fallback; }
+};
+
+// ===================== UI EVENTS =====================
+
+function bindUI() {
+  const search = $('#search');
+  const status = $('#filterStatus');
+  const role = $('#filterRole');
+  const mask = $('#maskIp');
+  const checkAll = $('#checkAll');
+  const exportBtn = $('#exportBtn');
+  const importFile = $('#importFile');
+  const clearLog = $('#clearLog');
+
+  if (search) {
+    search.oninput = e => {
+      state.search = e.target.value;
+      render();
+    };
+  }
+
+  if (status) {
+    status.onchange = e => {
+      state.filterStatus = e.target.value;
+      render();
+    };
+  }
+
+  if (role) {
+    role.onchange = e => {
+      state.filterRole = e.target.value;
+      render();
+    };
+  }
+
+  if (mask) {
+    mask.onchange = e => {
+      state.maskIp = e.target.checked;
+      render();
+    };
+  }
+
+  if (checkAll) {
+    checkAll.onclick = e => {
+      const list = filteredUsers();
+
+      if (e.target.checked) {
+        list.forEach(u => state.selected.add(u.id));
+      } else {
+        state.selected.clear();
+      }
+
+      render();
+    };
+  }
+
+  if (exportBtn) exportBtn.onclick = exportData;
+  if (importFile) importFile.onchange = importData;
+
+  if (clearLog) {
+    clearLog.onclick = () => {
+      AUDIT.clear();
+      renderLog();
+    };
+  }
+}
+
+// ===================== SEED DATA =====================
+
+function seed() {
+  if (DB.getAll().length) return;
+
+  DB.saveAll([
+    {
+      id: uid(),
+      name: 'Test User',
+      email: 'test@mail.com',
+      ip: '192.168.0.1',
+      role: 'user',
+      status: 'active',
+      violations: []
+    }
+  ]);
+}
+
+// ===================== LOG RENDER =====================
+
+function renderLog() {
+  const log = $('#log');
+  if (!log) return;
+
+  log.textContent = AUDIT.all()
+  
+    .map(x => `[${fmtDateTime(x.t)}] ${x.action}${x.data ? ' ' + JSON.stringify(x.data) : ''}`)
+    .join('\n');
+}
+
+</script>
+</body>
+</html>

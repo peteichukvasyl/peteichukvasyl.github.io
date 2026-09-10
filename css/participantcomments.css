@@ -1,0 +1,313 @@
+/* --- Reset та базові стилі --- */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+*{
+  text-decoration: none;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+::-webkit-scrollbar{
+    width: 10px;
+}
+::-webkit-scrollbar-thumb{
+    background-color: #0e0e0e;
+}
+::-webkit-scrollbar-track{
+    background-color: #303030;
+}
+body, html {
+  margin: 0 auto;
+ user-select: none;
+  position: relative;
+  max-width: 100%;
+  background: #fff;
+  background-image: url(../image/.webp);
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* --- Контейнер --- */
+#wrapper {
+  max-width: 900px;
+  margin: 0px auto;
+}
+
+/* --- Заголовки --- */
+h1, h2, h3, h4 {
+  margin: 20px auto;
+  font-weight: 700;
+  text-align: center;
+  color: #000;
+  padding-bottom: 20px;
+}
+
+/* --- Форми --- */
+form {
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-weight: 600;
+  color: #000;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+select,
+textarea {
+  padding: 8px 12px;
+  font-size: 15px;
+  border: none;
+  margin-bottom: 15px;
+  width: 100%;
+  resize: vertical;
+  border-bottom: 1px solid #000;
+  background-color: #ffffff00;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+}
+
+textarea {
+  min-height: 80px;
+}
+
+/* --- Кнопки загальні --- */
+button {
+  padding: 10px 18px;
+  font-size: 16px;
+  cursor: pointer;
+  border: 1px solid #000;
+  color: #000;
+  border-radius: 30px;
+  background-color: #00000000;
+}
+
+button:hover {
+  border: 1px solid #0e0e0e;
+    transition: 0.3s;
+    background-color: #0e0e0e;
+    text-shadow: 1px 1px 6px #0e0e0e;
+    color: #fff;
+}
+
+/* --- Кнопка виходу --- */
+#logoutBtn {
+  margin-top: 20px;
+  padding: 10px 18px;
+  font-size: 16px;
+  cursor: pointer;
+  border: 1px solid #000;
+  color: #000;
+  border-radius: 30px;
+}
+
+#logoutBtn:hover {
+  border: 1px solid #0e0e0e;
+    transition: 0.3s;
+    background-color: #0e0e0e;
+    text-shadow: 1px 1px 6px #0e0e0e;
+    color: #fff;
+}
+
+
+/* --- Повідомлення помилок/успіху --- */
+.error {
+  color: #d93025;
+  font-weight: 600;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+.success {
+  color: #188038;
+  font-weight: 600;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+
+/* --- Секції --- */
+#adminSection {
+  display: none; /* за замовчуванням прихований */
+}
+#editCommentSection {
+  display: none; /* приховано */
+  max-width: 600px;
+  margin: 0px auto;
+}
+/* --- Коментарі --- */
+#commentsList {
+  max-height: 280px;
+  overflow-y: auto;
+  padding: 10px;
+}
+.comment-item {
+  padding: 10px 0;
+  border-bottom: 1px solid #fff;
+}
+.comment-item:last-child {
+  border-bottom: none;
+}
+.comment-header {
+  font-weight: 700;
+  color: #000;
+}
+.comment-email {
+  font-size: 0.9em;
+  color: #000;
+  margin-bottom: 8px;
+}
+.comment-message {
+  white-space: pre-wrap;
+}
+.comment-actions {
+  text-align: right;
+}
+.comment-actions button {
+  margin-top: 20px;
+  padding: 10px 18px;
+  font-size: 16px;
+  cursor: pointer;
+  border: 1px solid #000;
+  color: #000;
+  border-radius: 30px;
+}
+.comment-actions button:hover {
+  border: 1px solid #0e0e0e;
+    transition: 0.3s;
+    background-color: #0e0e0e;
+    text-shadow: 1px 1px 6px #0e0e0e;
+    color: #fff;
+}
+
+
+
+/* --- Кнопка видалити всі коментарі --- */
+#deleteAllCommentsBtn {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 10px 18px;
+  font-size: 16px;
+  cursor: pointer;
+  border: 1px solid #000;
+  color: #000;
+  border-radius: 30px;
+}
+#deleteAllCommentsBtn:hover {
+  border: 1px solid #0e0e0e;
+    transition: 0.3s;
+    background-color: #0e0e0e;
+    text-shadow: 1px 1px 6px #0e0e0e;
+    color: #fff;
+}
+#passwordChangeSection{
+  background-color: #00000000;
+}
+
+/* --- Таблиця користувачів --- */
+#userListSection, #addUserSection {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 20px 25px;
+  color: #000;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 10px 12px;
+  text-align: left;
+  font-size: 16px;
+}
+th {
+  color: #000;
+}
+
+/* --- Журнал --- */
+#logSection {
+  max-width: 100%;
+  padding-bottom: 10px;
+}
+#adminLog {
+  width: 100%;
+  padding: 15px;
+  max-height: 200px;
+  overflow-y: auto;
+  font-size: 14px;
+  white-space: pre-wrap;
+}
+
+/* --- Історія редагувань --- */
+#editHistory {
+  max-height: 150px;
+  overflow-y: auto;
+  padding: 10px;
+  font-size: 0.9em;
+  color: #000;
+  white-space: pre-wrap;
+  margin-top: 15px;
+}
+
+/* --- Адаптивність --- */
+@media (max-width: 720px) {
+  #wrapper {
+    padding: 15px 20px;
+    margin: 10px auto;
+    max-width: 95%;
+  }
+  form, #userListSection, #addUserSection, #editCommentSection {
+    max-width: 100%;
+    padding: 15px 10px;
+  }
+  button, #logoutBtn, #deleteAllCommentsBtn {
+    font-size: 14px;
+    padding: 0 15px;
+    height: 30px;
+    width: 100%;
+    border-radius: 15px;
+  }
+  #commentsList {
+    max-height: 200px;
+  }
+  table, th, td {
+    font-size: 13px;
+    padding: 8px 10px;
+  }
+}
+
+@media (max-width: 400px) {
+  body, html {
+    padding: 10px;
+  }
+  #wrapper {
+    padding: 10px 15px;
+  }
+  label {
+    font-size: 14px;
+  }
+  input, select, textarea, button {
+    font-size: 14px;
+    padding: 8px 10px;
+  }
+}
+.logotype {
+  margin-top: 5%;
+  margin-bottom: 5%;
+  text-align: center;
+  font-size: 20px;
+}
+.logotype a {
+  color: #000;
+  font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+}

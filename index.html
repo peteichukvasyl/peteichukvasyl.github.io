@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>www.peteichuk.com</title>
+    <link rel="icon" href="logotype/logotype.png">
+    <link rel="stylesheet" href="css/style.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" 
+        integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw==" 
+        crossorigin="anonymous" referrerpolicy="no-referrer"/>
+</head>
+<body>
+  
+    <!-- Модальне вікно умов використання -->
+<div class="custom-overlay" id="customModalWrapper" data-modal>
+  <div class="custom-modal" role="dialog" aria-modal="true" aria-labelledby="termsTitle" aria-describedby="termsDesc">
+    <div class="custom-close-icon" data-modal-close aria-label="Закрити">&times;</div>
+    <h2 id="termsTitle">Умови використання сайту</h2>
+    <div id="termsDesc">
+      <p>Будь ласка, ознайомтесь з умовами перед використанням сайту:</p>
+      <ul>
+        <li>Ваші дії можуть записуватись для аналізу роботи сайту.</li>
+        <li>Контент захищено авторським правом — копіювати без дозволу заборонено.</li>
+        <li>Адміністрація може блокувати користувачів, які порушують правила.</li>
+        <li>Ваші дані використовуються відповідно до 
+          <a href="#" class="privacy-link" data-modal-open="privacyModal" style="text-decoration: none; color: #002c7e;">політики конфіденційності</a>.
+        </li>
+        <li>Користуючись сайтом, ви погоджуєтесь з цими умовами.</li>
+      </ul>
+    </div>
+    <div class="custom-buttons">
+      <button class="custom-close-btn" onclick="customDenyAccess()">Відхилити</button>
+      <button class="custom-agree-btn" onclick="customAcceptTerms()">Я погоджуюсь</button>
+    </div>
+  </div>
+</div>
+
+<!-- Модальне вікно політики конфіденційності -->
+<div class="privacy-modal-overlay" id="privacyModal" data-modal>
+  <div class="privacy-modal-content" role="dialog" aria-modal="true" aria-labelledby="privacyModalTitle" aria-describedby="privacyModalDesc">
+    <div class="privacy-modal-close-btn" data-modal-close aria-label="Закрити">&times;</div>
+    <h2 id="privacyModalTitle">Політика конфіденційності</h2>
+    <div id="privacyModalDesc">
+      <p>Ми поважаємо вашу приватність і зобов’язуємось захищати ваші персональні дані. У цій політиці описано, як ми збираємо, використовуємо та зберігаємо вашу інформацію під час користування сайтом.</p>
+      
+      <p><strong>Збір інформації:</strong> Ми можемо збирати дані про ваше використання сайту, такі як IP-адреса, тип браузера, час відвідування, щоб покращувати сервіс.</p>
+      
+      <p><strong>Використання даних:</strong> Інформація використовується для аналізу, персоналізації та поліпшення роботи сайту. Ми не передаємо ваші дані третім особам без вашої згоди, за винятком випадків, передбачених законом.</p>
+      
+      <p><strong>Файли cookie:</strong> Ми застосовуємо cookies для збереження ваших налаштувань та покращення взаємодії із сайтом. Детальніше про використання файлів cookie читайте у 
+        <a onclick="openCookies()" class="privacy-link" style="text-decoration: none; color: #002c7e; cursor: pointer;">нашій політиці cookies</a>.
+      </p>
+      
+      <p><strong>Безпека:</strong> Ми використовуємо належні заходи безпеки, щоб захистити ваші дані від несанкціонованого доступу.</p>
+      
+      <p><strong>Ваші права:</strong> Ви можете запросити доступ, виправлення або видалення своїх даних. Для цього звертайтесь через 
+        <a href="#contact" class="privacy-link" style="text-decoration: none; color: #002c7e;">контактну форму</a>.
+      </p>
+      
+      <p>Продовжуючи користуватись сайтом, ви погоджуєтесь з цією 
+       політикою конфіденційності. Ознайомтесь також з 
+        <a href="#terms" class="privacy-link" data-modal-open="customModalWrapper" style="text-decoration: none; color: #002c7e;">умовами використання сайту</a>.
+        Ми можемо час від часу оновлювати умови, тож рекомендуємо перевіряти їх періодично.
+      </p>
+    </div>
+  </div>
+</div>
+
+
+<!-- LEFT AD -->
+<div class="floating-ad left-ad" id="leftAd">
+  <button class="close-ad" onclick="hideAd('leftAd')">×</button>
+  <a id="leftAdLink" href="#" target="_blank">
+    <img id="leftAdImage">
+  </a>
+</div>
+
+<!-- RIGHT AD -->
+<div class="floating-ad right-ad" id="rightAd">
+  <button class="close-ad" onclick="hideAd('rightAd')">×</button>
+  <a id="rightAdLink" href="#" target="_blank">
+    <img id="rightAdImage" >
+  </a>
+</div>
+
+<!-- МОДАЛЬНЕ ВІКНО ФАЙЛІВ COOKIE -->
+<div id="filesModal" class="modal-overlay">
+
+  <div class="modal-box cookies-modal">
+
+    <button class="modal-close" onclick="dismissCookies()">×</button>
+
+    <h2>Файли cookie</h2>
+
+<p>
+  Ми використовуємо файли cookie для коректної роботи сайту, аналітики та збереження ваших налаштувань.
+</p>
+
+<p>
+  Ви можете окремо керувати кожною категорією: необхідні, аналітичні та маркетингові cookies.
+</p>
+
+<p>
+  Ви можете змінити або відкликати згоду у будь-який момент у цьому вікні налаштувань.
+</p>
+
+    <!-- Перемикачі -->
+    <div class="cookies-toggles">
+
+      <div class="toggle-row">
+        <div>
+          <strong>Аналітика</strong>
+          <small>Google Analytics / статистика відвідувань</small>
+        </div>
+
+        <label class="switch">
+          <input type="checkbox" id="cookie-analytics">
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="toggle-row">
+        <div>
+          <strong>Маркетинг</strong>
+          <small>реклама, ремаркетинг, пікселі</small>
+        </div>
+
+        <label class="switch">
+          <input type="checkbox" id="cookie-marketing">
+          <span class="slider"></span>
+        </label>
+      </div>
+
+    </div>
+
+    <!-- Кнопки -->
+    <div class="modal-actions">
+
+      <button class="btn-secondary" onclick="declineCookies()">
+        Відхилити все
+      </button>
+
+      <button class="btn-primary" onclick="saveCookies()">
+        Зберегти вибір
+      </button>
+
+    </div>
+
+  </div>
+</div>
+
+
+
+
+<div id="customSiteContent" class="custom-blocked"></div>
+
+    <!-- Кнопка скролу -->
+<button id="scrollTopBtn" class="scroll-top-btn" title="Вгору" aria-label="Повернутися вгору">
+  <i class="fa fa-angle-up"></i>
+</button>
+
+<!-- Верхня контактна панель -->
+<div class="top-contact">
+  <!-- стара назва, пс моя ;)<span class="marker"><i class="fa fa-map-marker"></i> Колось, вул. Волишенська 9</span>-->
+<span class="marker"><i class="fa fa-map-marker"></i> Germany</span>
+  <div class="right-contact">
+      <span class="phone"><i class="fa fa-phone"></i> +49 162 268 2966</span>
+    <span><i class="fa fa-envelope"></i> peteichukvasyl03@gmail.com</span>
+  </div>
+</div>
+
+<!-- Navbar -->
+<nav class="navbar" id="navbar">
+  <a class="logotype" href="index.html">Peteichuk</a>
+  <ul class="menu" id="menu">
+    <li><a href="#main">Головна</a></li>
+    <li><a href="#services">Послуги</a></li>
+    <li><a href="#history">Історія</a></li>
+    <li><a href="#projects">Проєкти</a></li>
+    <li><a href="#support">Підтримка</a></li>
+    <li><a href="#team">Команда</a></li>
+    <li><a href="#contact">Контакт</a></li>
+  </ul>
+  <div class="burger" id="burger" aria-expanded="false" aria-controls="menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</nav>
+
+<!-- Top Content -->
+<div class="top_content_paralax_img">
+
+    <div class="parallax-bg"></div>
+
+    <div class="top_content_paralax" id="main">
+        <div class="top_content">
+            <div class="top_content_text">
+                <h1>Ласкаво просимо до нашого вебсайту!</h1>
+                <p>Твій додаток — твоя ідея, наша реалізація</p>
+
+                <div class="buttom_content">
+                    <a href="#projects" class="buttom">
+                        Переглянути проєкти
+                    </a>
+
+                    <a href="#contact" class="buttom_two">
+                        Напишіть нам
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- Послуги -->
+<div class="container" id="services">
+  <div class="text_container">
+    <p class="text1">Наші послуги</p>
+    <p class="text2">Ознайомтеся з тим, що ми пропонуємо для вашого бізнесу</p>
+  </div>
+
+  <div class="carousel-wrapper">
+    <button class="carousel-btn prev"><i class="fa fa-angle-left"></i></button>
+    <div class="carousel" id="carousel">
+      <div class="item"><img src="image/spaklowka3.png" alt="Service 1"></div>
+      <div class="item"><img src="image/interier0.png" alt="Service 2"></div>
+      <div class="item"><img src="image/elektrika0.jpg" alt="Service 3"></div>
+      <div class="item"><img src="image/plytka0.jpg" alt="Service 4"></div>
+      <div class="item"><img src="image/brukiwka0.jpg" alt="Service 5"></div>
+    </div>
+    <button class="carousel-btn next"><i class="fa fa-angle-right"></i></button>
+  </div>
+</div>
+
+<!-- Розділ "Історія" -->
+<section class="history_section">
+  <div class="container_two" id="history">
+    <div class="left-line">
+      <p class="text1">Про нас</p>
+      <h2 class="text2">Наша історія</h2>
+    </div>
+    <div class="history_text scroll-reveal visible">
+      <p>
+        Наша історія почалася <strong>27 липня 2025 року</strong>, коли ми створили цей сервіс, щоб зробити виконання цифрових завдань простішим, швидшим і зрозумілішим для клієнтів.
+      </p>
+      <p>
+        Спочатку це був невеликий фріланс-проєкт, але з часом ми вибудували системний підхід до роботи та перетворили його на організований онлайн-сервіс.
+      </p>
+      <p>
+        Сьогодні ми працюємо з різними задачами — від дизайну та текстів до технічних рішень і підтримки проєктів. Ми фокусуємось не лише на виконанні завдання, а й на результаті, який буде корисним для клієнта.
+      </p>
+      <p>
+        Наш процес простий: ви ставите задачу — ми беремо відповідальність за реалізацію та доводимо результат до погодженого рівня якості.
+      </p>
+      <p class="founder">
+        <i class="fa fa-user"></i> Засновник — <strong>Петейчук Василь Васильович</strong>.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Портфоліо -->
+<div class="portfolio">
+<div class="container_three">
+<div class="text_container_three" id="projects">
+
+<p class="text1">Портфоліо проектів</p>
+<p class="text2">Приклад успішних проектів</p>
+
+<div class="customgrid-container">
+
+
+<div class="custom-section">
+<img src="image/interier0.png" alt="Інтер’єрні роботи" loading="lazy">
+<a href="#" class="custom-btn-view" data-gallery="interior">Інтер’єрні роботи</a>
+</div>
+
+
+<div class="custom-section">
+<img src="image/plytka.webp" alt="Облицювання" loading="lazy">
+<a href="#" class="custom-btn-view" data-gallery="tiles">Облицювання</a>
+</div>
+
+
+<div class="custom-section">
+<img src="image/stolar1.webp" alt="Столярство" loading="lazy">
+<a href="#" class="custom-btn-view" data-gallery="wood">Столярство</a>
+</div>
+
+
+<div class="custom-section">
+<img src="image/elektrika0.jpg" alt="Мережі" loading="lazy">
+<a href="#" class="custom-btn-view" data-gallery="electric">Мережі</a>
+</div>
+
+
+<div class="custom-section">
+<img src="image/brukiwka0.jpg" alt="Брукування" loading="lazy">
+<a href="#" class="custom-btn-view" data-gallery="brukiwka">Брукування</a>
+</div>
+
+
+<div class="custom-section">
+<img src="image/spaklowka0.png" alt="Оздоблення" loading="lazy">
+<a href="#" class="custom-btn-view" data-gallery="paint">Оздоблення</a>
+</div>
+
+
+</div>
+</div>
+</div>
+</div>
+
+
+<div class="gallery-viewer" id="galleryViewer">
+
+<button class="gallery-close">
+<i class="fa fa-times"></i>
+</button>
+
+<button class="gallery-prev">
+<i class="fa fa-chevron-left"></i>
+</button>
+
+<img class="gallery-image" src="" alt="gallery">
+
+<button class="gallery-next">
+<i class="fa fa-chevron-right"></i>
+</button>
+
+<div class="gallery-scroll"></div>
+
+</div>
+
+<!-- FAQ / Акордіон -->
+<div class="accordion-faq">
+  <div class="container_four" id="support">
+    <div class="text_container_four">
+      <p class="text1">Допомога</p>
+      <p class="text2">Найпоширеніші запитання</p>
+
+     <section>
+  <div class="container_five">
+    
+    <div class="accordion-item">
+      <a class="accordion-link" href="#question1">Як працює політика зміни?</a>
+      <div class="answer">
+        <p>
+         Ми надаємо до 4 етапів перегляду продукту. Після кожного ви можете запропонувати правки, щоб ми вдосконалили результат.
+         Якщо після всіх етапів продукт не відповідає погодженому технічному завданню, ви можете подати запит на повернення коштів.
+        </p>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <a class="accordion-link" href="#question2">Як формується прибуток?</a>
+      <div class="answer">
+        <p>
+         Ми працюємо за комісією 30 %, яка стягується після завершення роботи над продуктом.
+         Умови можуть відрізнятися залежно від типу продукту, про що ми повідомляємо заздалегідь після оформлення замовлення.
+        </p>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <a class="accordion-link" href="#question3">Як змінити вигляд товару?</a>
+      <div class="answer">
+        <p>
+         Ви можете змінювати вигляд товару під час етапів перегляду.
+         Ми вносимо правки відповідно до узгодженого технічного завдання та доступних можливостей.
+        </p>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <a class="accordion-link" href="#question4">Чи є гарантія повернення коштів?</a>
+      <div class="answer">
+        <p>
+          Так. Повернення можливе, якщо після всіх етапів перегляду продукт не відповідає погодженому технічному завданню.
+          Усі звернення розглядаються індивідуально через службу підтримки.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+    </div>
+  </div>
+</div>
+
+<!-- Команда -->
+<div class="containet_team">
+  <div class="container_six">
+    <div class="text_container_six" id="team">
+      <p class="text1">Ми - команда</p>
+      <p class="text2">Зустрічайте нашу команду</p>
+    <div class="cards_wrapper">
+      <!-- Картка учасника 1 -->
+      <div class="card">
+        <div class="card_img">
+          <img src="we/admin.png" alt="Степанюк Роман" />
+        </div>
+        <h2>Степанюк Роман</h2>
+        <p>Адміністратор</p>
+        <div class="card_social">
+           <a href="#instagram"><i class="fa fa-instagram"></i></a>
+           <a href="#github"><i class="fa fa-github"></i></a>
+        </div>
+        <button>Переглянути резюме</button>
+      </div>
+
+      <!-- Картка учасника 2 -->
+      <div class="card">
+        <div class="card_img">
+          <img src="we/vasyl.jpg" alt="Петейчук Василь" />
+        </div>
+        <h2>Петейчук Василь</h2>
+        <p>Власник</p>
+        <div class="card_social">
+          <a href="https://wa.me/491622682966"><i class="fa fa-whatsapp"></i></a>
+          <a href="https://t.me/+491622682966"><i class="fa fa-telegram"></i></a>
+          <a href="https://www.facebook.com/peteichukvasyl/?rdid=yOeKrdwyvnGp33O1"><i class="fa fa-facebook"></i></a>
+          <a href="https://www.instagram.com/peteichukvasyl/"><i class="fa fa-instagram"></i></a>
+          <a href="#youtube"><i class="fa fa-youtube"></i></a>
+          <a href="https://github.com/VasylPeteichuk"><i class="fa fa-github"></i></a>
+        </div>
+        <a href="peteichuk_cv.html"><button>Переглянути резюме</button></a>
+      </div>
+
+       <!-- Картка учасника 3 -->
+      <div class="card">
+        <div class="card_img">
+          <img src="image/vasilii.png" alt="Шаповалов Василий" />
+        </div>
+        <h2>Шаповалов Василий</h2>
+        <p>Виконроб</p>
+        <div class="card_social">
+          <a href="https://wa.me/4915151587225"><i class="fa fa-whatsapp"></i></a>
+          <a href="https://t.me/+4915151587225"><i class="fa fa-telegram"></i></a>
+          <a href="https://www.instagram.com/shapovalov9348/"><i class="fa fa-instagram"></i></a>
+        </div>
+        <button>Переглянути резюме</button>
+      </div>
+      <!--<div class="card">
+        <div class="card_img">
+          <img src="we/moder.png" alt="Горченко Соломія" />
+        </div>
+        <h2>Горченко Соломія</h2>
+        <p>Модератор</p>
+        <div class="card_social">
+          <a href="#facebook"><i class="fa fa-facebook"></i></a>
+          <a href="#youtube"><i class="fa fa-youtube"></i></a>
+          <a href="#instagram"><i class="fa fa-instagram"></i></a>
+          <a href="#github"><i class="fa fa-github"></i></a>
+        </div>
+        <button>Переглянути резюме</button>
+      </div>-->
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- Форма зворотного зв'язку -->
+<div class="form-out">
+  <div class="feedback-form-container">
+    <h1  id="contact">Контактна Форма</h1>
+    <form id="feedbackForm" action="#" method="POST">
+      <label for="fullName">Повне ім'я</label>
+      <input type="text" id="fullName" name="fullName" placeholder="Введіть повне ім'я" required autocomplete="name" />
+
+      <label for="email">Електронна адреса</label>
+      <input type="email" id="email" name="email" placeholder="Введіть ваш email" required autocomplete="email" inputmode="email" />
+
+      <label for="message">Повідомлення</label>
+      <textarea id="message" name="message" rows="6" placeholder="Введіть ваше повідомлення" required></textarea>
+
+      <button type="submit">Надіслати повідомлення</button>
+    </form>
+
+    <a href="participantcomments.html" class="back-link">Перейти до системи управління</a>
+  </div>
+</div>
+
+<!-- Нижній колонтитул -->
+<div class="footer-5-column">
+  <div class="footer-container">
+    <div class="footer-navbar">
+      <div class="footer-navbar-col">
+        <p>Розділи сайту</p>
+        <ul>
+          <li><a href="#more-projects">Більше проєктів</a></li>
+          <li><a href="#media">Публікації в медіа</a></li>
+          <li><a href="#history">Наша історія</a></li>
+          <li><a href="#social_responsibility">Соціальна відповідальність</a></li>
+          <li><a href="discussionadmin.html">Панель управління чатом</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-navbar-col">
+        <p>Підтримка</p>
+        <ul>
+          <li><a href="discussion.html">Обговорення</a></li>
+          <li><a href="#question-goods">Питання щодо товару</a></li>
+          <li><a href="#garranty">Гарантія та обслуговування</a></li>
+          <li><a href="#partnership_offers">Партнерські пропозиції</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-navbar-col">
+        <p>Соцмережі</p>
+        <ul>
+          <li><a href="https://www.instagram.com/peteichukvasyl/">Instagram</a></li>
+          <li><a href="https://t.me/Peteichuk_Vasyl">Telegram</a></li>
+          <li><a href="https://www.facebook.com/peteichukvasyl/?rdid=yOeKrdwyvnGp33O1">Facebook</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-navbar-col">
+        <p>Додатково</p>
+        <ul>
+          <li><a href="authorization.html">Реєстрація</a></li>
+          <li><a href="tracker.html">Трекер помічник</a></li>
+          <li><a href="hashing.html">SHA-256 Генератор</a></li>
+          <li><a href="console.html">Консоль</a></li>
+          <li><a href="database.html">База — даних</a></li>
+          <li><a href="management_system.html">Система управління</a></li>
+         <li><a href="#privacy-policy" data-modal-open="privacyModal">Політика конфіденційності</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!--Розділ партнерів-->
+    <section class="partners">
+      <div class="partners-slider">
+        <div class="slide-track" id="track">
+          <div class="partner"><img src="partners/hostiq.webp"></div>
+
+          <div class="partner"><img src="partners/logom.svg"></div>
+          
+           <div class="partner"><img src="partners/hostiq.webp"></div>
+
+          <div class="partner"><img src="partners/logom.svg"></div>
+          
+           <div class="partner"><img src="partners/hostiq.webp"></div>
+
+          <div class="partner"><img src="partners/logom.svg"></div>
+          
+           <div class="partner"><img src="partners/hostiq.webp"></div>
+
+          <div class="partner"><img src="partners/logom.svg"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Горизонтальна лінія -->
+    <hr class="footer-divider">
+
+    <!-- Авторське право -->
+    <div class="footer-bottom">
+      <p>© 2025 Peteichuk | Всі права захищені</p>
+    </div>
+  </div>
+</div>
+</body>
+
+
+
+<script src="js/script.js"></script>
+
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <title>Peteichuk | Консоль</title>
+  <link rel="icon" href="logotype/logotype.png">
+  <link rel="stylesheet" href="css/console.css">
+</head>
+
+<body>
+
+  <!-- ЛОГОТИП -->
+  <div class="logotype">
+    <a href="index.html">P e t e i c h u k</a>
+  </div>
+
+  <div class="container">
+
+    <!-- ПЕРЕМИКАЧ ТЕМИ -->
+    <header>
+      <button id="toggleTheme" title="Перемкнути тему">🌙</button>
+    </header>
+
+    <!-- =========================
+         1. ВХІД КОРИСТУВАЧА (СПОЧАТКУ)
+    ========================== -->
+    <!--<section id="userLoginSection">
+      <h2>Вхід у акаунт</h2>
+
+      <input type="email" id="userLoginEmail" placeholder="Email" />
+      <input type="password" id="userLoginPassword" placeholder="Пароль" />
+
+      <button id="userLoginBtn">Увійти</button>
+
+      <p>
+        Немає акаунта?
+        <button type="button" id="showRegister">Зареєструватися</button>
+      </p>
+    </section>-->
+<section id="loginSection">
+
+  <h2>Вхід</h2>
+
+  <form id="userLoginForm">
+
+    <input type="email" id="loginEmail" placeholder="Email" required>
+
+    <input type="password" id="loginPassword" placeholder="Пароль" required>
+
+    <button type="submit">Увійти</button>
+
+  </form>
+
+  <p>
+    Немає акаунта?
+    <button type="button" id="showRegister">
+      Зареєструватися
+    </button>
+  </p>
+
+</section>
+
+
+    <!-- =========================
+         2. РЕЄСТРАЦІЯ КОРИСТУВАЧА
+    ========================== -->
+    <section id="userAuthSection" class="hidden">
+      <h2>Реєстрація користувача</h2>
+
+      <form id="userAuthForm">
+        <label>Ім'я</label>
+        <input type="text" name="userName" placeholder="Ваше ім’я" required />
+
+        <label>Прізвище</label>
+        <input type="text" name="userSurname" placeholder="Ваше прізвище" required />
+
+        <label>Email</label>
+        <input type="email" name="userEmail" placeholder="Ваш email" required />
+
+        <label>Пароль</label>
+        <input type="password" name="userPassword" placeholder="Ваш пароль" required minlength="8"/>
+
+        <button type="submit">Зареєструватися</button>
+      </form>
+
+      <p>
+        Вже маєш акаунт?
+        <button type="button" id="showLogin">Увійти</button>
+      </p>
+    </section>
+
+    <!-- =========================
+         3. ПАНЕЛЬ КОРИСТУВАЧА
+    ========================== -->
+    <section id="userPanel" class="hidden">
+      <h2>Ваші повідомлення</h2>
+
+      <button id="userLogoutBtn" style="float:right;">Вийти</button>
+
+      <div id="userMessages"></div>
+
+      <h3>Нове повідомлення</h3>
+
+      <form id="contactForm">
+        <textarea name="message" placeholder="Напишіть повідомлення" required></textarea>
+        <button type="submit">Надіслати</button>
+      </form>
+    </section>
+
+    <!-- =========================
+         4. ВХІД В КОНСОЛЬ (АДМІН)
+    ========================== -->
+    <!--<section id="loginSection" class="hidden">
+      <h2>Вхід в консоль</h2>
+
+      <input type="password" id="adminPass" placeholder="Пароль" />
+      <button id="loginBtn">Увійти</button>
+
+      <p>
+        Немає акаунта?
+        <button type="button" id="showRegister">Зареєструватися</button>
+      </p>
+    </section>-->
+
+    <!-- =========================
+         5. АДМІН-ПАНЕЛЬ
+    ========================== -->
+    <section id="adminSection" class="hidden">
+
+      <div class="panel-top">
+        <h2>Приватна консоль</h2>
+        <button id="logoutBtn">Вийти</button>
+      </div>
+
+      <input type="text" id="searchInput" placeholder="Пошук по email" />
+
+      <table>
+        <thead>
+          <tr>
+            <th>Ім’я</th>
+            <th>Email</th>
+            <th>Повідомлення</th>
+            <th>Відповідь</th>
+            <th>Роль</th>
+            <th>Дії</th>
+          </tr>
+        </thead>
+        <tbody id="submissionTable"></tbody>
+      </table>
+    </section>
+
+    <!-- ПАНЕЛЬ МОДЕРАЦІЇ -->
+    <div id="moderationPanel">
+      <div id="moderationHeader">
+        Панель модерації
+        <button id="closeModPanelBtn">×</button>
+      </div>
+      <div id="moderationContent"></div>
+    </div>
+
+  </div>
+
+  <script src="js/console.js"></script>
+</body>
+</html>

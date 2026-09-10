@@ -1,0 +1,84 @@
+:root{--bg:#f7f7f7;--text:#000;--border:#000;--muted:#ddd;--accent:#000;--user:#7700ff;--moderator:#0094ff;--admin:#8200ff;--danger:#e94e77;--success:#4caf50;--warning:#ff8c00;}
+
+body.dark{--bg:#0f0f0f;--text:#fff;--border:#fff;--muted:#333;--accent:#fff;--user:#b56cff;--moderator:#4db8ff;--admin:#d18bff;--danger:#ff4d4d;--success:#4caf50;--warning:#ff8c00;}
+
+body{user-select:none;margin:0;max-width:100%;position:relative;font-family:Georgia,'Times New Roman',Times,serif;background:var(--bg);color:var(--text);background-attachment:fixed;background-position:center;background-repeat:no-repeat;background-size:cover;filter:brightness(.8);}
+
+*{box-sizing:border-box;text-decoration:none;}
+
+::-webkit-scrollbar{width:10px;}
+::-webkit-scrollbar-thumb{background:#0e0e0e;}
+::-webkit-scrollbar-track{background:#303030;}
+
+.container{max-width:700px;margin:0 auto;padding:30px;font-family:Arial,sans-serif;color:var(--text);}
+
+.logotype{text-align:center;font-size:20px;margin:5% 0;}
+.logotype a{color:var(--text);font-size:20px;font-weight:bold;text-transform:uppercase;}
+
+#toggleTheme{background:none;border:none;font-size:24px;cursor:pointer;transition:.3s;margin-left:auto;color:var(--text);}
+#toggleTheme:hover{transform:rotate(30deg);}
+body.dark #toggleTheme{color:#fff;}
+
+input{width:100%;padding:10px;margin:5px 0 15px;font-size:14px;border:none;outline:none;background:transparent;color:var(--text);}
+textarea{width:100%;padding:10px;margin:5px 0 15px;font-size:14px;border:none;outline:none;background:transparent;color:var(--text);}
+select{width:100%;padding:10px;margin:5px 0 15px;font-size:14px;border:none;outline:none;background:transparent;color:var(--text);}
+
+/* =========================
+   КНОПКИ (чорний акцент)
+   ========================= */
+
+button{
+  outline:none;
+  color:var(--text);
+  border:1px solid var(--border);
+  padding:10px 20px;
+  background:transparent;
+  border-radius:30px;
+  font-size:16px;
+  cursor:pointer;
+  transition:.25s ease;
+}
+
+button:hover{
+  background:var(--accent);
+  border-color:var(--accent);
+  color:#fff;
+  transform:translateY(-1px);
+}
+
+.hidden{display:none;}
+
+table{width:100%;border-collapse:collapse;font-size:14px;}
+th,td{padding:10px;border:1px solid var(--muted);color:var(--text);}
+
+.role-user{color:var(--user);font-weight:bold;}
+.role-moderator{color:var(--moderator);font-weight:bold;}
+.role-admin{color:var(--admin);font-weight:bold;}
+
+.comment-box{padding:10px;margin-bottom:10px;background:transparent;}
+.comment-meta{font-size:14px;margin-bottom:10px;}
+.comment-actions{text-align:right;margin-top:8px;}
+
+.comment-box.admin-reply{color:var(--admin);font-size:16px;border-left:4px solid var(--admin);padding:5px;margin-top:5px;}
+.comment-box.moderator-reply{color:var(--moderator);font-size:16px;border-left:4px solid var(--moderator);padding:5px;margin-top:5px;}
+
+.btn-small{padding:4px 8px;font-size:12px;border-radius:4px;border:none;cursor:pointer;margin-left:5px;}
+
+.btn-reply{background:var(--success);border:1px solid var(--success);color:#000;border-radius:30px;}
+.btn-delete{background:var(--danger);border:1px solid var(--danger);color:#000;border-radius:30px;}
+.btn-block{background:var(--warning);border:1px solid var(--warning);color:#000;border-radius:30px;}
+.btn-unblock{background:#777;border:1px solid #777;color:#000;border-radius:30px;}
+
+.panel-top{display:flex;justify-content:space-between;align-items:center;padding:15px;}
+
+#moderationPanel{width:400px;background:var(--bg);border:1px solid var(--muted);border-radius:10px;position:fixed;top:50px;left:50px;box-shadow:0 5px 15px rgba(0,0,0,.3);z-index:9999;user-select:none;display:none;flex-direction:column;}
+
+#moderationHeader{background:var(--accent);color:#fff;padding:10px;font-weight:bold;border-radius:10px 10px 0 0;display:flex;justify-content:space-between;align-items:center;cursor:grab;}
+
+#moderationContent{padding:15px;max-height:400px;overflow-y:auto;}
+
+#closeModPanelBtn{background:transparent;border:none;color:#fff;font-size:18px;cursor:pointer;}
+
+#userMessages,#loginSection,#userPanel,#userAuthSection{margin-top:10px;padding:15px;}
+
+#userAuthForm label{position:relative;}

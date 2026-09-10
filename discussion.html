@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Peteichuk | Коментарі та обговорення</title>
+   <link rel="stylesheet" href="css/discussion.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw==" crossorigin="anonymous" referrerpolicy="no-referrer">
+   <link rel="icon" href="logotype/logotype.png">
+</head>
+<body>
+ 
+  <div class="logotype"><a href="index.html">P e t e i c h u k</a></div>
+
+  <div class="ccw-container">
+    <h2 class="ccw-title">Залиште коментар</h2>
+    <div id="authSection" class="ccw-auth-form">
+      <h3>Авторизація користувача</h3>
+      <form id="authForm">
+        <input type="text" id="authName" class="ccw-input" placeholder="Ваше ім’я" required />
+        <input type="email" id="authEmail" class="ccw-input" placeholder="Ваша електронна адреса" required />
+        <button type="submit" class="ccw-btn-submit">Підтвердити</button>
+      </form>
+    </div>
+
+    <div id="userInfo" class="auth-info" style="display:none;">
+      <div>
+        Ви увійшли як: <strong id="displayName"></strong><span id="displayEmail"></span>
+      </div>
+      <button class="logout-btn" id="logoutBtn">Вийти</button>
+    </div>
+
+    <form id="commentForm" class="ccw-form" style="display:none;">
+      <textarea id="commentText" class="ccw-textarea" placeholder="Ваш коментар" required></textarea>
+      <button type="submit" class="ccw-btn-submit">Додати коментар</button>
+    </form>
+
+    <div id="commentsList" class="ccw-comments-list"></div>
+  </div>
+
+  <script src="js/discussion.js"></script>
+</body>
+</html>

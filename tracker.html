@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Peteichuk | Tracker</title>
+<link rel="icon" href="logotype/logotype.png">
+<link rel="stylesheet" href="css/tracker.css" />
+</head>
+<body>
+<div class="logotype"><a href="index.html">P e t e i c h u k</a></div>
+
+<div class="container">
+<h1>Трекер роботи</h1>
+
+<div id="auth">
+<h2>Вхід | Реєстрація</h2>
+<div class="content">
+<label>Логін: <input type="text" id="loginUsername" style="font-size: 14px;" placeholder="Введіть ваш логін" required></label>
+<label>Пароль: <input type="password" id="loginPassword" style="font-size: 14px;" placeholder=" Введіть пароль" required></label>
+<button onclick="login()">Увійти</button>
+<button onclick="register()">Зареєструватися</button>
+<div id="authMessage" style="color:#900000;"></div>
+</div>
+</div>
+
+<div id="tracker" style="display:none;">
+<h2>
+Ласкаво просимо! Ваш ID:
+[<span id="currentUser" class="gradient-text"></span>]
+<button id="logout" onclick="logout()">Вийти</button>
+</h2>
+
+<button id="deleteDataBtn">Видалити мої дані</button>
+
+<label>Дата:
+<input type="date" id="date">
+<button id="setTodayBtn" style="font-size:14px;">Цей день</button>
+</label>
+
+<label>Години:
+<input type="number" id="hours" min="0" step="0.01" placeholder="Введіть години" style="font-size:14px;">
+</label>
+
+<label>Хвилини:
+<input type="number" id="minutes" min="0" max="59" step="1" placeholder="Введіть хвилини" style="font-size:14px;">
+</label>
+
+<label>Ставка:
+<input type="number" id="rate" min="0" step="0.01" placeholder="Введіть ставку" style="font-size:14px;">
+</label>
+
+<label>Курс валюти:
+<select id="currency">
+<option value="₴">Гривня (₴)</option>
+<option value="€">Євро (€)</option>
+<option value="$">Долар ($)</option>
+<option value="BYN">Білоруський рубль (BYN)</option>
+<option value="RUB">Руський рубль (RUB)</option>
+<option value="PLN">Польський злотий (PLN)</option>
+<option value="CZK">Чеська крона (CZK)</option>
+</select>
+</label>
+
+<label>Перерва:
+<select id="break">
+<option value="0.5" selected>30 хвилин</option>
+<option value="0.0833">5 хвилин</option>
+<option value="0.1667">10 хвилин</option>
+<option value="0.25">15 хвилин</option>
+<option value="0.3333">20 хвилин</option>
+<option value="0.75">45 хвилин</option>
+<option value="1">1 година</option>
+<option value="1.5">1 година 30 хвилин</option>
+<option value="2">2 години</option>
+<option value="0">Немає</option>
+</select>
+</label>
+
+<button onclick="addRecord()">Додати запис</button>
+<button onclick="clearRecords()" id="clearBtn">Очистити всі записи</button>
+
+<h2>Список записів</h2>
+<ul id="recordList"></ul>
+
+<h2>Підсумок</h2>
+<div class="totals" id="totalDisplay"></div>
+
+<h2>Конвертер валют</h2>
+<label>Сума: <input type="number" id="convertAmount" min="0" step="0.01" placeholder="0.00"></label>
+<label>З валюти:
+<select id="fromCurrency">
+<option value="₴">Гривня (₴)</option>
+<option value="€">Євро (€)</option>
+<option value="$">Долар ($)</option>
+<option value="BYN">Білоруський рубль (BYN)</option>
+<option value="RUB">Руський рубль (RUB)</option>
+<option value="PLN">Польський злотий (PLN)</option>
+<option value="CZK">Чеська крона (CZK)</option>
+</select>
+</label>
+<label>В валюту:
+<select id="toCurrency">
+<option value="₴">Гривня (₴)</option>
+<option value="€">Євро (€)</option>
+<option value="$">Долар ($)</option>
+<option value="BYN">Білоруський рубль (BYN)</option>
+<option value="RUB">Руський рубль (RUB)</option>
+<option value="PLN">Польський злотий (PLN)</option>
+<option value="CZK">Чеська крона (CZK)</option>
+</select>
+</label>
+<label>Додати відсоток: <input type="number" id="percentAmount" min="0" step="0.01" placeholder="%"></label>
+<button onclick="convertCurrency()">Перевести</button>
+<div id="conversionResult" class="totals"></div>
+
+<div id="adminPanel" style="display:none; margin:15px 0;">
+<h2>Адмінська панель: керування користувачами</h2>
+<ul id="allUsers"></ul>
+<div id="userPanel"></div>
+
+<div id="lastLoggedOutPanel" style="border-top:1px solid #fff; padding-top:10px; margin-top:10px;">
+<h3>Останні користувачі, що вийшли</h3>
+<ul id="lastLoggedOutList"></ul>
+</div>
+</div>
+
+<div id="deleteModal" style="display:none; position:fixed; z-index:1000; left:0; top:0; width:100%; height:100%; background-color:rgba(0,0,0,0.6); font-family:Arial, sans-serif;">
+<div style="background:#fff; margin:10% auto; padding:25px 20px; width:350px; border-radius:8px; text-align:center; box-shadow:0 6px 20px rgba(0,0,0,0.3); animation:fadeIn 0.3s ease-in-out;">
+<h2 style="color:#900000; margin-bottom:15px;">⚠ Увага!</h2>
+<p style="font-size:16px; color:#000; line-height:1.5; margin-bottom:20px;">
+Ви збираєтесь <b>видалити всі свої дані та обліковий запис</b>.<br>
+<span style="color:#900000; font-weight:bold;">Це не можна буде відновити!</span>
+</p>
+<input type="password" id="confirmPassword" placeholder="Введіть пароль" style="padding:10px; width:90%; margin-bottom:10px; border:1px solid #000; border-radius:30px;">
+<div id="deleteError" style="color:#900000; font-size:16px; margin-bottom:15px; display:none;">Неправильний пароль, спробуйте ще раз</div>
+<div style="display:flex; justify-content:space-between;">
+<button id="confirmDeleteBtn" style="flex:1; font-size: 14px; padding:10px; background:#900000; color:#fff; border:none; border-radius:30px; cursor:pointer; font-weight:bold; transition:0.3s;">Видалити</button>
+<button id="cancelDeleteBtn" style="flex:1; font-size: 14px; padding:10px; background:#4f4d4b; color:#fff; border:none; border-radius:30px; cursor:pointer; font-weight:bold; transition:0.3s;">Скасувати</button>
+</div>
+</div>
+</div>
+</div>
+
+<script src="js/tracker.js"></script>
+</body>
+</html>

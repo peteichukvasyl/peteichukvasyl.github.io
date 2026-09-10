@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Peteichuk | SHA-256</title>
+  <link rel="icon" href="logotype/logotype.png">
+  <link rel="stylesheet" href="css/hashing.css">
+</head>
+<body>
+
+  <div class="logotype"><a href="index.html">P e t e i c h u k</a></div>
+
+  <div class="content">
+    <h2 class="title">Генератор хешу</h2>
+    <div class="section">
+      <label for="genPassword">Введіть пароль:</label>
+      <input type="password" id="genPassword" placeholder="Введіть пароль" />
+      <button onclick="generateHash()">Згенерувати хеш</button>
+      <div class="flex-row">
+        <div class="result" id="generatedHash">Тут з'явиться хеш</div>
+        <button class="small-button" onclick="copyText('generatedHash')">Копіювати</button>
+      </div>
+    </div>
+
+    <h2 class="title">Перевірка пароля</h2>
+    <div class="section">
+      <label for="hashToCheck">Введіть відомий SHA-256 хеш:</label>
+      <div class="flex-row">
+        <input type="text" id="hashToCheck" placeholder="Введіть SHA-256 хеш" />
+        <button class="small-button" onclick="pasteFromClipboard()">Вставити</button>
+      </div>
+
+      <label for="checkPassword">Введіть пароль для перевірки:</label>
+      <input type="password" id="checkPassword" placeholder="Введіть пароль" />
+
+      <button onclick="checkHash()">Перевірити</button>
+      <div class="flex-row">
+        <div class="result" id="checkResult">Результат перевірки з'явиться тут</div>
+        <button class="small-button" onclick="copyText('checkResult')">Копіювати</button>
+      </div>
+    </div>
+  </div>
+</body>
+<script src="js/hashing.js"></script>
+
+</html>

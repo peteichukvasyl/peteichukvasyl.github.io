@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<title>Peteichuk | Авторизація — Скидання</title>
+<link rel="icon" href="logotype/logotype.png"/>
+<link rel="stylesheet" href="css/database.css">
+</head>
+<body>
+<div id="overlay"></div>
+
+<!-- Модальне вікно авторизації -->
+<div class="modal" id="loginModal">
+    <h2>База даних серверу</h2>
+    <label>Ім'я: <input type="text" id="adminName" placeholder="Ваше ім'я"></label>
+    <label>Email: <input type="email" id="adminEmail" placeholder="Ваш email"></label>
+    <label>Пароль: <input type="password" id="adminPassword" placeholder="Пароль"></label>
+    <button onclick="loginAdmin()">Увійти</button>
+    <a href="index.html"><button onclick="closeModal()">Закрити</button></a>
+    <div id="authMessage" style="color:#900000;margin-top:10px;"></div>
+</div>
+
+<!-- Менеджер даних -->
+<div class="modal" id="dataManagerModal" style="display:none;">
+    <h2>Адмінська панель</h2>
+    <div id="tabs">
+        <button class="active" onclick="showTab('manager', event)">Дані</button>
+        <button onclick="showTab('admin', event)">Користувачі</button>
+        <button onclick="showTab('logs', event)">Лог дій</button>
+        <button onclick="showTab('last', event)">Останні користувачі</button>
+    </div>
+    <div id="tabContent" style="margin-top:10px;">
+        <!-- Дані -->
+        <div id="managerTab">
+            <button onclick="clearLocalStorage()">Очистити LocalStorage</button>
+            <button onclick="clearSessionStorage()">Очистити SessionStorage</button>
+            <button onclick="clearAllCookies()">Видалити всі Cookies</button>
+            <button onclick="clearSpecificData()">Видалити певні дані</button>
+            <button onclick="clearSpecificCookie()">Видалити певний Cookie</button>
+            <button onclick="exportData()">Експорт даних (JSON)</button>
+            <button onclick="showDataSummary()">Показати статистику даних</button>
+            <hr>
+            <b>Статистика даних:</b>
+            <div id="dataSummary"></div>
+        </div>
+        <!-- Користувачі -->
+        <div id="adminTab" style="display:none;">
+            <b>Список користувачів та їх записи:</b>
+            <div id="allUsers"></div>
+        </div>
+        <!-- Лог дій -->
+        <div id="logsTab" style="display:none;">
+            <b>Лог дій:</b>
+            <div id="actionLogs"></div>
+        </div>
+        <!-- Останні користувачі -->
+        <div id="lastTab" style="display:none;">
+            <b>Останні вийшли користувачі:</b>
+            <div id="lastUsers"></div>
+        </div>
+    </div>
+    <hr>
+    <button onclick="logout()">Вийти</button>
+    <button onclick="closeModal()">Закрити</button>
+</div>
+<script src="js/database.js"></script>
+</body>
+</html>
+
